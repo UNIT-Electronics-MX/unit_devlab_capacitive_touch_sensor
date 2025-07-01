@@ -1,9 +1,9 @@
 
-# UNIT Touch Capacitive Sensor Development Board
+# UNIT Touch Capacitive Sensor
 
 
 <div align="center">
-  <img src="hardware/resources/unit_touch_capacitive_sensor.png" width="450px" alt="Development Board">
+  <img src="hardware/resources/unit_top_V_0_0_1_ue0099_Sensor_Touch.png" width="450px" alt="Development Board">
   <p><em></em></p>
 </div>
 

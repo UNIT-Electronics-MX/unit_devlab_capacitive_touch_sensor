@@ -2,7 +2,7 @@
 
 
 <div align="center">
-    <a href="#">
+    <a href="./unit_sch_V_0_0_1_ue0099_Sensor_Touch.pdf">
         <img src="resources/Schematics_icon.jpg?raw=false" width="500px"><br/> Schematics
     </a>
 </div>
@@ -30,5 +30,25 @@
 
 </div>
 
+## 📏 Dimensions
 
+<div align="center">
+<a href="./resources/unit_dimension_V_0_0_1_ue0099_Sensor_Touch.png"><img src="./resources/unit_dimension_V_0_0_1_ue0099_Sensor_Touch.png" width="500px"><br/> Dimensions</a>
+</div>
+
+## 📃 Topology
+
+<div align="center">
+<a href="./resources/unit_topology_V_0_0_1_ue0099_Sensor_Touch.png"><img src="./resources/unit_topology_V_0_0_1_ue0099_Sensor_Touch.png" width="500px"><br/> Topology</a>
+
+| Ref. | Description                              |
+|------|------------------------------------------|
+| SW1  | Capacitive Touch Button                  |
+| L1   | Built-In LED                             |
+| IC1  | TTP223-BA6-TD Touch Detector             | 
+| J1   | QWIIC Connector (JST 1 mm pitch) for I2C |
+| SB1  | Solder Bridge for Mode Selection         | 
+| SB2  | Solder Bridge for Logic Level Selector   |
+
+</div>
 
