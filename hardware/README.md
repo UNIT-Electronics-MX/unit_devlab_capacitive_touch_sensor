@@ -3,7 +3,7 @@
 
 <div align="center">
     <a href="./unit_sch_V_0_0_1_ue0099_Sensor_Touch.pdf">
-        <img src="resources/Schematics_icon.jpg?raw=false" width="500px"><br/> Schematics
+        <img src="resources/Schematics_icon.jpg?raw=false" width="450px"><br/> Schematics
     </a>
 </div>
 
@@ -16,11 +16,17 @@
 
 <div align="center">
 
-**Pinout Diagram**
+### **Pinout Diagram**
 
-![Pinout Diagram](docs/pinout.png)
+<div align="center">
+    <a href="./unit_sch_V_0_0_1_ue0099_Sensor_Touch.pdf">
+        <img src="resources/Schematics_ion.jpg?raw=false" width="500px"><br/> Schematics
+    </a>
+</div>
+<br/>
+<br/>
 
-**Pinout Details**
+### **Pinout Details**
 
 | Pin Label | Function     | Notes                           |
 |-----------|--------------|---------------------------------|
@@ -40,6 +46,8 @@
 
 <div align="center">
 <a href="./resources/unit_topology_V_0_0_1_ue0099_Sensor_Touch.png"><img src="./resources/unit_topology_V_0_0_1_ue0099_Sensor_Touch.png" width="500px"><br/> Topology</a>
+<br/>
+<br/>
 
 | Ref. | Description                              |
 |------|------------------------------------------|

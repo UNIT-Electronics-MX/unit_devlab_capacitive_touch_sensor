@@ -1,13 +1,13 @@
 
-# UNIT Touch Capacitive Sensor
+# Touch Capacitive Sensor
 
 
 <div align="center">
-  <img src="hardware/resources/unit_top_V_0_0_1_ue0099_Sensor_Touch.png" width="450px" alt="Development Board">
+  <img src="hardware/resources/unit_top_V_0_0_1_ue0099_Sensor_Touch.png" width="500px" alt="Development Board">
   <p><em></em></p>
 </div>
 
-
+The **UNIT Touch Capacitive Sensor** is a compact, easy-to-use breakout module based on the TTP223 capacitive touch IC. It allows your microcontroller to detect finger touches without any mechanical buttons or moving parts. Just power it up, wire the output pin to a digital input on your board, and start reading touches!
 
 
 ## 📦 Overview
