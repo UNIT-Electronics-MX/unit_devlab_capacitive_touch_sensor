@@ -20,7 +20,7 @@
 
 <div align="center">
     <a href="./unit_sch_V_0_0_1_ue0099_Sensor_Touch.pdf">
-        <img src="resources/Schematics_ion.jpg?raw=false" width="500px"><br/> Schematics
+        <img src="resources/unit_pinout_v_0_0_1_ue0099_sensor_touch_en.png" width="500px"><br/> Schematics
     </a>
 </div>
 <br/>
