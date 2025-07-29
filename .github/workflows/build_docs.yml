@@ -100,6 +100,9 @@ jobs:
         git config --local user.name "github-actions[bot]"
         git config --local user.email "github-actions[bot]@users.noreply.github.com"
         
+        # Pull latest changes to avoid non-fast-forward errors
+        git pull origin main --rebase
+        
         git add docs/
         if ! git diff --staged --quiet; then
           git commit -m "Deploy documentation [skip ci]"
