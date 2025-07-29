@@ -1,6 +1,8 @@
 
 # Touch Capacitive Sensor
 
+## Description
+
 The **UNIT Touch Capacitive Sensor** is a compact breakout module utilizing the TTP223 capacitive touch IC. It enables microcontrollers to detect touch input without mechanical buttons or moving components. The module operates by simply supplying power and connecting the output pin to a digital input on your development board, providing a reliable and straightforward touch interface.
 
 <div align="center">

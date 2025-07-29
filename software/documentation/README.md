@@ -21,6 +21,25 @@ Fill in each section without deleting or modifying the existing headings.
 <!-- FILL HERE -->
 The UNIT Touch Capacitive Sensor transforms a simple touch into a precise digital signal—no buttons, no moving parts. Powered by the TTP223B capacitive sensing chip, this board continuously monitors its flat electrode pad and instantly reports “touch detected” via a clean HIGH logic output. Whether you’re building a sleek control panel, a wearable interface, or a touch-activated lamp, this sensor delivers reliable, debounce-free touch detection with minimal wiring and virtually zero power draw at rest.
 
+## KEY TECHNICAL SPECIFICATIONS
+
+<!-- 
+========================================
+EDITABLE SPECIFICATIONS TEMPLATE
+========================================
+Edita los valores a continuación según necesites.
+El formato se mantendrá automáticamente en el PDF generado.
+-->
+
+### 🔌 CONNECTIVITY (Conectividad)
+<!-- Edita las interfaces y conectores disponibles -->
+| Interface | Details |
+|-----------|---------|
+| **Primary Interface** | GPIO (Interrupt) |
+| **Connector Type** | JST 4-pin 1.0mm |
+| **Logic Levels** | VCC-referenced (2V – 5.5V tolerant) |
+
+
 ## Functional Description
 
 <!-- FILL HERE -->
