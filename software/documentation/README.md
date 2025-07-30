@@ -36,8 +36,7 @@ El formato se mantendrá automáticamente en el PDF generado.
 | **Logic Levels** | VCC-referenced (2V – 5.5V tolerant) |
 
 
-## Functional Description
-
+## Technical Specifications
 <!-- FILL HERE -->
 1. **Capacitive Sensing**: The TTP223B IC measures changes in capacitance on the large silver touch pad.  
 2. **Signal Processing**: Internal auto-calibration and filtering remove noise and drift.  
