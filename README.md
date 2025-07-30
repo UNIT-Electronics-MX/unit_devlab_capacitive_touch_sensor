@@ -19,8 +19,7 @@ The UNIT Touch Capacitive Sensor transforms a simple touch into a precise digita
 | Capacitive Sensing   | Utilizes the TTP223B IC to detect changes in capacitance on the large silver touch pad.                                                          |
 | Signal Processing    | Internal auto-calibration and filtering circuitry remove noise and drift for reliable operation.                                                  |
 | Digital Output       | OUT pin goes HIGH when touch is detected (capacitance exceeds threshold); remains LOW otherwise.                                                  |
-| Mode Selection       | Solder jumper allows selection between:<br>• **Momentary mode (L):** OUT is HIGH only while touched.<br>• **Toggle mode (T):** OUT toggles state on each touch. |
-
+| Mode Selection       | Solder jumper selects between Momentary mode (OUT is HIGH only while touched) and Toggle mode (OUT toggles state on each touch). |
 
 
 ## 🧪 Use Cases
