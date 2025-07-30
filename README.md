@@ -1,7 +1,10 @@
 
 # Touch Capacitive Sensor
 
-The **UNIT Touch Capacitive Sensor** is a compact breakout module utilizing the TTP223 capacitive touch IC. It enables microcontrollers to detect touch input without mechanical buttons or moving components. The module operates by simply supplying power and connecting the output pin to a digital input on your development board, providing a reliable and straightforward touch interface.
+## Introduction
+
+<!-- FILL HERE -->
+The UNIT Touch Capacitive Sensor transforms a simple touch into a precise digital signal—no buttons, no moving parts. Powered by the TTP223B capacitive sensing chip, this board continuously monitors its flat electrode pad and instantly reports “touch detected” via a clean HIGH logic output. Whether you’re building a sleek control panel, a wearable interface, or a touch-activated lamp, this sensor delivers reliable, debounce-free touch detection with minimal wiring and virtually zero power draw at rest.
 
 <div align="center">
   <img src="hardware/resources/unit_top_V_0_0_1_ue0099_Sensor_Touch.png" width="500px" alt="Development Board">
@@ -11,9 +14,12 @@ The **UNIT Touch Capacitive Sensor** is a compact breakout module utilizing the 
 
 ## 📦 Overview
 
-| Feature                 | Description                                                   |
-|------------------------|---------------------------------------------------------------|
-
+| Feature              | Description                                                                                                                                      |
+|----------------------|--------------------------------------------------------------------------------------------------------------------------------------------------|
+| Capacitive Sensing   | Utilizes the TTP223B IC to detect changes in capacitance on the large silver touch pad.                                                          |
+| Signal Processing    | Internal auto-calibration and filtering circuitry remove noise and drift for reliable operation.                                                  |
+| Digital Output       | OUT pin goes HIGH when touch is detected (capacitance exceeds threshold); remains LOW otherwise.                                                  |
+| Mode Selection       | Solder jumper selects between Momentary mode (OUT is HIGH only while touched) and Toggle mode (OUT toggles state on each touch). |
 
 
 ## 🧪 Use Cases

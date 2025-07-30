@@ -16,20 +16,27 @@ Fill in each section without deleting or modifying the existing headings.
 
 ![alt text](../../hardware/resources/unit_top_V_0_0_1_ue0099_Sensor_Touch.png) <!-- FILL HERE: replace image if needed -->
 
-## Introduction
 
-<!-- FILL HERE -->
-The UNIT Touch Capacitive Sensor transforms a simple touch into a precise digital signal—no buttons, no moving parts. Powered by the TTP223B capacitive sensing chip, this board continuously monitors its flat electrode pad and instantly reports “touch detected” via a clean HIGH logic output. Whether you’re building a sleek control panel, a wearable interface, or a touch-activated lamp, this sensor delivers reliable, debounce-free touch detection with minimal wiring and virtually zero power draw at rest.
+## KEY TECHNICAL SPECIFICATIONS
 
-## Functional Description
+<!-- 
+========================================
+EDITABLE SPECIFICATIONS TEMPLATE
+========================================
+Edita los valores a continuación según necesites.
+El formato se mantendrá automáticamente en el PDF generado.
+-->
 
-<!-- FILL HERE -->
-1. **Capacitive Sensing**: The TTP223B IC measures changes in capacitance on the large silver touch pad.  
-2. **Signal Processing**: Internal auto-calibration and filtering remove noise and drift.  
-3. **Digital Output**: When the measured capacitance exceeds the threshold, the OUT pin goes HIGH; otherwise, it remains LOW.  
-4. **Mode Selection**: A small solder jumper lets you choose between:  
-   - **Momentary mode (L)**: OUT is HIGH only while the pad is being touched.  
-   - **Toggle mode (T)**: OUT toggles state on each touch (like a latching switch).
+### 🔌 CONNECTIVITY (Conectividad)
+<!-- Edita las interfaces y conectores disponibles -->
+| Interface | Details |
+|-----------|---------|
+| **Primary Interface** | GPIO (Interrupt) |
+| **Connector Type** | JST 4-pin 1.0mm |
+| **Logic Levels** | VCC-referenced (2V – 5.5V tolerant) |
+
+
+
 
 ## Electrical Characteristics & Signal Overview
 
@@ -61,34 +68,9 @@ The UNIT Touch Capacitive Sensor transforms a simple touch into a precise digita
 - **Mounting holes**: Two M3 screw holes for easy panel integration.  
 - **JST PH-2.0 connector**: Quick-disconnect cable interface.
 
-## Pin & Connector Layout
 
-| Group     | Available Pins | Suggested Use                          |
-|-----------|----------------|----------------------------------------|
-| GPIO      | <!-- FILL -->  | <!-- FILL -->                          |
-| UART      | <!-- FILL -->  | <!-- FILL -->                          |
-| TouchPad  | <!-- FILL -->  | <!-- FILL -->                          |
-| Analog    | <!-- FILL -->  | <!-- FILL -->                          |
-| SPI       | <!-- FILL -->  | <!-- FILL -->                          |
 
-## Settings
 
-### Interface Overview
-
-| Interface  | Signals / Pins         | Typical Use                              |
-|------------|------------------------|------------------------------------------|
-| UART       | <!-- FILL -->          | <!-- FILL -->                             |
-| I2C        | <!-- FILL -->          | <!-- FILL -->                             |
-| SPI        | <!-- FILL -->          | <!-- FILL -->                             |
-| USB        | <!-- FILL -->          | <!-- FILL -->                             |
-
-### Supports
-
-| Symbol | I/O         | Description                        |
-|--------|-------------|------------------------------------|
-| VCC    | Input       | <!-- FILL -->                      |
-| GND    | GND         | <!-- FILL -->                      |
-| IO     | Bidirectional | <!-- FILL -->                   |
 
 ## Block Diagram
 

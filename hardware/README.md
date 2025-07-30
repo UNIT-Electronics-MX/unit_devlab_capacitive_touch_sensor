@@ -9,9 +9,6 @@
 
 ---
 
-## ⚙️ Technical Specifications
-
-
 ## 🔌 Pinout
 
 <div align="center">
@@ -32,7 +29,7 @@
 |-----------|--------------|---------------------------------|
 | VCC       | Power Supply | 3.3V or 5V, depending on design  |
 | GND       | Ground       | Common ground reference         |
-| D0        | Data Signal  | Digital input/output signal     |
+| D0        | Data Signal  | Digital Output signal     |
 
 </div>
 
