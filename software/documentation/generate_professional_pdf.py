@@ -3441,6 +3441,9 @@ class ProfessionalDatasheetGenerator:
                 
                 if 'pinout' in section_name or 'pin' in section_name:
                     pinout_tables.append(table_info)
+                elif 'overview' in section_name:
+                    # La tabla de overview debe ir a spec_tables para aparecer en ADDITIONAL TECHNICAL INFORMATION
+                    spec_tables.append(table_info)
                 elif (is_component_table or 'component' in section_name or 'reference' in section_name or 
                       'ref.' in section_name or section_name.endswith('ref')):
                     component_tables.append(table_info)
@@ -3850,7 +3853,8 @@ class ProfessionalDatasheetGenerator:
                             values = [str(row.get(header, '')) for header in headers]
                             markdown_table += f"| {' | '.join(values)} |\n"
                         table_html = self.markdown_table_to_html_professional(markdown_table, 'technical')
-                        html += f'''
+                        if table_html:
+                            html += f'''
                             <div class="table-container">
                                 <h3 class="table-title">{section_title}</h3>
                                 {table_html}
