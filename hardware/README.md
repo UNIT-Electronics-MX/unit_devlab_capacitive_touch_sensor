@@ -9,15 +9,6 @@
 
 ---
 
-## ⚙️ Technical Specifications
-
-<!-- FILL HERE -->
-1. **Capacitive Sensing**: The TTP223B IC measures changes in capacitance on the large silver touch pad.  
-2. **Signal Processing**: Internal auto-calibration and filtering remove noise and drift.  
-3. **Digital Output**: When the measured capacitance exceeds the threshold, the OUT pin goes HIGH; otherwise, it remains LOW.  
-4. **Mode Selection**: A small solder jumper lets you choose between:  
-   - **Momentary mode (L)**: OUT is HIGH only while the pad is being touched.  
-   - **Toggle mode (T)**: OUT toggles state on each touch (like a latching switch).
 ## 🔌 Pinout
 
 <div align="center">
