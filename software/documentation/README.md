@@ -76,34 +76,9 @@ El formato se mantendrá automáticamente en el PDF generado.
 - **Mounting holes**: Two M3 screw holes for easy panel integration.  
 - **JST PH-2.0 connector**: Quick-disconnect cable interface.
 
-## Pin & Connector Layout
 
-| Group     | Available Pins | Suggested Use                          |
-|-----------|----------------|----------------------------------------|
-| GPIO      | <!-- FILL -->  | <!-- FILL -->                          |
-| UART      | <!-- FILL -->  | <!-- FILL -->                          |
-| TouchPad  | <!-- FILL -->  | <!-- FILL -->                          |
-| Analog    | <!-- FILL -->  | <!-- FILL -->                          |
-| SPI       | <!-- FILL -->  | <!-- FILL -->                          |
 
-## Settings
 
-### Interface Overview
-
-| Interface  | Signals / Pins         | Typical Use                              |
-|------------|------------------------|------------------------------------------|
-| UART       | <!-- FILL -->          | <!-- FILL -->                             |
-| I2C        | <!-- FILL -->          | <!-- FILL -->                             |
-| SPI        | <!-- FILL -->          | <!-- FILL -->                             |
-| USB        | <!-- FILL -->          | <!-- FILL -->                             |
-
-### Supports
-
-| Symbol | I/O         | Description                        |
-|--------|-------------|------------------------------------|
-| VCC    | Input       | <!-- FILL -->                      |
-| GND    | GND         | <!-- FILL -->                      |
-| IO     | Bidirectional | <!-- FILL -->                   |
 
 ## Block Diagram
 
