@@ -2238,6 +2238,61 @@
 </table>
                             </div>
                         
+                            <div class="table-container">
+                                <h3 class="table-title">**Mode And Level Selection Table**</h3>
+                                <table class="professional-table">
+<thead>
+<tr>
+<th>Mode Selection</th>
+<th>Level Selection</th>
+<th>TOG</th>
+<th>AHLB</th>
+<th>Pad Q (CMOS Output)</th>
+<th>Pad OPDO (Open Drain Output)</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>Direct mode, active high</td>
+<td>Direct mode, open drain active high</td>
+<td>Single pulse, momentary</td>
+</tr>
+<tr>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>1</td>
+<td>Direct mode, active low</td>
+<td>Direct mode, open drain active low</td>
+<td>Single pulse, toggle (inverted pulse)</td>
+</tr>
+<tr>
+<td>1</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>Toggle mode, power-on state = 0</td>
+<td>Toggle mode, power-on = High-Z, active high</td>
+<td>Pulse latch, requires another touch to release</td>
+</tr>
+<tr>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>Toggle mode, power-on state = 1</td>
+<td>Toggle mode, power-on = High-Z, active low</td>
+<td>Pulse latch, requires another touch to release (inverted)</td>
+</tr>
+</tbody>
+</table>
+                            </div>
+                        
                         </div>
                 
         
@@ -2363,36 +2418,6 @@
 <tr>
 <td>Solder Jumper</td>
 <td>Select between low and high sensitivity</td>
-</tr>
-</tbody>
-</table><table class="professional-table">
-<thead>
-<tr>
-<th>Mode Selection</th>
-<th>Level Selection</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>0</td>
-<td>0</td>
-<td>Single pulse, momentary</td>
-</tr>
-<tr>
-<td>0</td>
-<td>1</td>
-<td>Single pulse, toggle (inverted pulse)</td>
-</tr>
-<tr>
-<td>1</td>
-<td>0</td>
-<td>Pulse latch, requires another touch to release</td>
-</tr>
-<tr>
-<td>1</td>
-<td>1</td>
-<td>Pulse latch, requires another touch to release (inverted)</td>
 </tr>
 </tbody>
 </table>
