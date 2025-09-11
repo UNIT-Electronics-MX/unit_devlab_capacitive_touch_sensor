@@ -2,7 +2,7 @@ from machine import Pin
 import time
 
 # Usamos GPIO6
-touch_pin = Pin(6, Pin.IN, Pin.PULL_DOWN)
+touch_pin = Pin(12, Pin.IN, Pin.PULL_DOWN)
 
 pulse_count = 0
 
