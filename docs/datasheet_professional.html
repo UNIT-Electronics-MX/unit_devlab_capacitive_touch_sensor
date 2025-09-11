@@ -2239,17 +2239,17 @@
                             </div>
                         
                             <div class="table-container">
-                                <h3 class="table-title">**Mode And Level Selection Table**</h3>
+                                <h3 class="table-title">Mode & Level Selection</h3>
                                 <table class="professional-table">
 <thead>
 <tr>
-<th>Mode Selection</th>
-<th>Level Selection</th>
+<th>Mode</th>
+<th>Level</th>
 <th>TOG</th>
 <th>AHLB</th>
-<th>Pad Q (CMOS Output)</th>
-<th>Pad OPDO (Open Drain Output)</th>
-<th>Description</th>
+<th>Pad Q (CMOS)</th>
+<th>Pad OPDO (Open Drain)</th>
+<th>Behavior</th>
 </tr>
 </thead>
 <tbody>
@@ -2258,36 +2258,36 @@
 <td>0</td>
 <td>0</td>
 <td>0</td>
-<td>Direct mode, active high</td>
-<td>Direct mode, open drain active high</td>
-<td>Single pulse, momentary</td>
+<td>Active high</td>
+<td>Open drain, active high</td>
+<td>Momentary, single pulse</td>
 </tr>
 <tr>
 <td>0</td>
 <td>1</td>
 <td>0</td>
 <td>1</td>
-<td>Direct mode, active low</td>
-<td>Direct mode, open drain active low</td>
-<td>Single pulse, toggle (inverted pulse)</td>
+<td>Active low</td>
+<td>Open drain, active low</td>
+<td>Momentary, inverted pulse</td>
 </tr>
 <tr>
 <td>1</td>
 <td>0</td>
 <td>1</td>
 <td>0</td>
-<td>Toggle mode, power-on state = 0</td>
-<td>Toggle mode, power-on = High-Z, active high</td>
-<td>Pulse latch, requires another touch to release</td>
+<td>Toggle, power-on=0</td>
+<td>Toggle, active high</td>
+<td>Toggle, touch to change state</td>
 </tr>
 <tr>
 <td>1</td>
 <td>1</td>
 <td>1</td>
 <td>1</td>
-<td>Toggle mode, power-on state = 1</td>
-<td>Toggle mode, power-on = High-Z, active low</td>
-<td>Pulse latch, requires another touch to release (inverted)</td>
+<td>Toggle, power-on=1</td>
+<td>Toggle, active low</td>
+<td>Toggle, inverted</td>
 </tr>
 </tbody>
 </table>
