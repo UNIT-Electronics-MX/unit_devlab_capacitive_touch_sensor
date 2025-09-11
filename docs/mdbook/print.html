@@ -234,16 +234,15 @@ Please refer to <a href="LICENSE.html"><code>LICENSE.md</code></a> for full term
 <tr><td>Level Selection</td><td>Solder Jumper</td><td>Select between low and high sensitivity</td></tr>
 </tbody></table>
 </div>
-<h3 id="mode-and-level-selection-table"><a class="header" href="#mode-and-level-selection-table"><strong>Mode and Level Selection Table</strong></a></h3>
-<div class="table-wrapper"><table><thead><tr><th>Mode Selection</th><th>Level Selection</th><th>TOG</th><th>AHLB</th><th>Pad Q (CMOS Output)</th><th>Pad OPDO (Open Drain Output)</th><th>Description</th></tr></thead><tbody>
-<tr><td>0</td><td>0</td><td>0</td><td>0</td><td>Direct mode, active high</td><td>Direct mode, open drain active high</td><td>Single pulse, momentary</td></tr>
-<tr><td>0</td><td>1</td><td>0</td><td>1</td><td>Direct mode, active low</td><td>Direct mode, open drain active low</td><td>Single pulse, toggle (inverted pulse)</td></tr>
-<tr><td>1</td><td>0</td><td>1</td><td>0</td><td>Toggle mode, power-on state = 0</td><td>Toggle mode, power-on = High-Z, active high</td><td>Pulse latch, requires another touch to release</td></tr>
-<tr><td>1</td><td>1</td><td>1</td><td>1</td><td>Toggle mode, power-on state = 1</td><td>Toggle mode, power-on = High-Z, active low</td><td>Pulse latch, requires another touch to release (inverted)</td></tr>
+<h4 id="mode--level-selection"><a class="header" href="#mode--level-selection">Mode &amp; Level Selection</a></h4>
+<div class="table-wrapper"><table><thead><tr><th>Mode</th><th>Level</th><th>TOG</th><th>AHLB</th><th>Pad Q (CMOS)</th><th>Pad OPDO (Open Drain)</th><th>Behavior</th></tr></thead><tbody>
+<tr><td>0</td><td>0</td><td>0</td><td>0</td><td>Active high</td><td>Open drain, active high</td><td>Momentary, single pulse</td></tr>
+<tr><td>0</td><td>1</td><td>0</td><td>1</td><td>Active low</td><td>Open drain, active low</td><td>Momentary, inverted pulse</td></tr>
+<tr><td>1</td><td>0</td><td>1</td><td>0</td><td>Toggle, power-on=0</td><td>Toggle, active high</td><td>Toggle, touch to change state</td></tr>
+<tr><td>1</td><td>1</td><td>1</td><td>1</td><td>Toggle, power-on=1</td><td>Toggle, active low</td><td>Toggle, inverted</td></tr>
 </tbody></table>
 </div>
-<h4 id="notes-on-the-integration"><a class="header" href="#notes-on-the-integration">Notes on the integration:</a></h4>
-<p>The table below summarizes how the mode and level selection (left columns) determine the sensor's operative functionality. The TOG and AHLB columns represent the pad configuration bits as defined in the TTP223 datasheet. "Pad Q" and "Pad OPDO" show the output modes (CMOS or open drain), while the "Description" column provides a simplified explanation of the resulting behavior. This layout lets you quickly see how the functional mode (momentary/toggle), pad configuration, and output type relate to each other.</p>
+<p><em>Mode and level solder jumpers set output type and behavior (momentary/toggle, active high/low).</em></p>
 <h2 id="-dimensions"><a class="header" href="#-dimensions">📏 Dimensions</a></h2>
 <div align="center">
 <div align="center"><a href="hardware/../resources/unit_dimension_V_0_0_1_ue0099_Sensor_Touch.png"><img src="hardware/../resources/unit_dimension_V_0_0_1_ue0099_Sensor_Touch.png" style="max-width: 500px; height: auto;" alt="Dimensions"><br/> Dimensions</a></div>
@@ -280,16 +279,15 @@ Please refer to <a href="LICENSE.html"><code>LICENSE.md</code></a> for full term
 <tr><td>Level Selection</td><td>Solder Jumper</td><td>Select between low and high sensitivity</td></tr>
 </tbody></table>
 </div>
-<h3 id="mode-and-level-selection-table-1"><a class="header" href="#mode-and-level-selection-table-1"><strong>Mode and Level Selection Table</strong></a></h3>
-<div class="table-wrapper"><table><thead><tr><th>Mode Selection</th><th>Level Selection</th><th>TOG</th><th>AHLB</th><th>Pad Q (CMOS Output)</th><th>Pad OPDO (Open Drain Output)</th><th>Description</th></tr></thead><tbody>
-<tr><td>0</td><td>0</td><td>0</td><td>0</td><td>Direct mode, active high</td><td>Direct mode, open drain active high</td><td>Single pulse, momentary</td></tr>
-<tr><td>0</td><td>1</td><td>0</td><td>1</td><td>Direct mode, active low</td><td>Direct mode, open drain active low</td><td>Single pulse, toggle (inverted pulse)</td></tr>
-<tr><td>1</td><td>0</td><td>1</td><td>0</td><td>Toggle mode, power-on state = 0</td><td>Toggle mode, power-on = High-Z, active high</td><td>Pulse latch, requires another touch to release</td></tr>
-<tr><td>1</td><td>1</td><td>1</td><td>1</td><td>Toggle mode, power-on state = 1</td><td>Toggle mode, power-on = High-Z, active low</td><td>Pulse latch, requires another touch to release (inverted)</td></tr>
+<h4 id="mode--level-selection-1"><a class="header" href="#mode--level-selection-1">Mode &amp; Level Selection</a></h4>
+<div class="table-wrapper"><table><thead><tr><th>Mode</th><th>Level</th><th>TOG</th><th>AHLB</th><th>Pad Q (CMOS)</th><th>Pad OPDO (Open Drain)</th><th>Behavior</th></tr></thead><tbody>
+<tr><td>0</td><td>0</td><td>0</td><td>0</td><td>Active high</td><td>Open drain, active high</td><td>Momentary, single pulse</td></tr>
+<tr><td>0</td><td>1</td><td>0</td><td>1</td><td>Active low</td><td>Open drain, active low</td><td>Momentary, inverted pulse</td></tr>
+<tr><td>1</td><td>0</td><td>1</td><td>0</td><td>Toggle, power-on=0</td><td>Toggle, active high</td><td>Toggle, touch to change state</td></tr>
+<tr><td>1</td><td>1</td><td>1</td><td>1</td><td>Toggle, power-on=1</td><td>Toggle, active low</td><td>Toggle, inverted</td></tr>
 </tbody></table>
 </div>
-<h4 id="notes-on-the-integration-1"><a class="header" href="#notes-on-the-integration-1">Notes on the integration:</a></h4>
-<p>The table below summarizes how the mode and level selection (left columns) determine the sensor's operative functionality. The TOG and AHLB columns represent the pad configuration bits as defined in the TTP223 datasheet. "Pad Q" and "Pad OPDO" show the output modes (CMOS or open drain), while the "Description" column provides a simplified explanation of the resulting behavior. This layout lets you quickly see how the functional mode (momentary/toggle), pad configuration, and output type relate to each other.</p>
+<p><em>Mode and level solder jumpers set output type and behavior (momentary/toggle, active high/low).</em></p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="-dimensions-1"><a class="header" href="#-dimensions-1">📏 Dimensions</a></h1>
 <div align="center">
 <div align="center"><a href="hardware/../resources/unit_dimension_V_0_0_1_ue0099_Sensor_Touch.png"><img src="hardware/../resources/unit_dimension_V_0_0_1_ue0099_Sensor_Touch.png" style="max-width: 500px; height: auto;" alt="Dimensions"><br/> Dimensions</a></div>
