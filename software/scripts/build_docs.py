@@ -19,7 +19,7 @@ class DocumentationBuilder:
         # Get the root project directory (2 levels up from scripts)
         self.project_root = Path(__file__).parent.parent.parent
         self.book_path = self.project_root / "software" / "book"
-        self.extract_script = self.project_root / "smart-extract-docs.py"
+        self.extract_script = Path(__file__).parent / "smart-extract-docs.py"  # Now in same directory
         self.docs_path = self.project_root / "docs"  # PROTECTED DIRECTORY
         
         print(f"🏗️  Documentation Builder for UNIT Touch Capacitive Sensor")
