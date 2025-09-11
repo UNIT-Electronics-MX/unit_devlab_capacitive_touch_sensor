@@ -2035,9 +2035,9 @@ class ProfessionalDatasheetGenerator:
         
         .product-view-image {
             width: 100%;
-            max-width: 300px;
+            max-width: 500px;
             min-width: 250px;
-            height: 200px;
+            height: 400px;
             object-fit: contain;
             object-position: center;
             border-radius: 6px;
