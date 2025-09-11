@@ -1526,7 +1526,7 @@ class ProfessionalDatasheetGenerator:
         /* RESPONSIVE IMAGE STYLES FOR WEB AND PRINT */
         .pinout-image-large {
             width: 100%;
-            max-width: 900px;
+            max-width: 1200px;
             height: auto;
             object-fit: contain;
             border: 2px solid #e2e8f0;
@@ -1539,7 +1539,7 @@ class ProfessionalDatasheetGenerator:
         
         .dimensions-image-large {
             width: 100%;
-            max-width: 800px;
+            max-width: 1100px;
             height: auto;
             object-fit: contain;
             border: 2px solid #e2e8f0;
@@ -1566,7 +1566,7 @@ class ProfessionalDatasheetGenerator:
         
         .topology-image {
             width: 100%;
-            max-width: 650px;
+            max-width: 900px;
             height: auto;
             object-fit: contain;
             border-radius: 6px;
@@ -1607,7 +1607,7 @@ class ProfessionalDatasheetGenerator:
         
         .topology-image-large {
             width: 100%;
-            max-width: 800px;
+            max-width: 1100px;
             height: auto;
             object-fit: contain;
             border-radius: 8px;
@@ -1638,7 +1638,7 @@ class ProfessionalDatasheetGenerator:
         
         .schematic-image {
             width: 100%;
-            max-width: 300px;
+            max-width: 600px;
             height: auto;
             object-fit: contain;
             border-radius: 8px;
