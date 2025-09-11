@@ -11,3 +11,18 @@ software/sphinx/docs
 software/sphinx/pdf
 software/venv
 software/firmware
+
+# mdBook build artifacts
+software/book/book/
+software/book/src/.DS_Store
+*.tmp
+
+# mdBook local development
+docs/.mdbook-cache/
+docs/book.toml.bak
+docs/src/**/*.tmp
+docs/theme/*.tmp
+
+# Local development and testing
+book-test/
+docs-local/

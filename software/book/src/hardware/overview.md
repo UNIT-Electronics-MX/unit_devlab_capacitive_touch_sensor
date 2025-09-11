@@ -1,12 +1,10 @@
-# Hardware
-
+# Hardware Overview
 
 <div align="center">
-    <a href="./unit_sch_V_0_0_1_ue0099_Sensor_Touch.pdf">
-        <img src="resources/Schematics_icon.jpg?raw=false" width="450px"><br/> Schematics
+    <a href="../resources/unit_sch_V_0_0_1_ue0099_Sensor_Touch.pdf">
+        <img src="../resources/Schematics_icon.jpg?raw=false" width="450px"><br/> Schematics
     </a>
 </div>
-
 
 ## 🔌 Pinout
 
@@ -15,8 +13,8 @@
 ### **Pinout Diagram**
 
 <div align="center">
-    <a href="./unit_sch_V_0_0_1_ue0099_Sensor_Touch.pdf">
-        <img src="resources/unit_pinout_v_0_0_1_ue0099_sensor_touch_en.jpg" width="500px"><br/> Schematics
+    <a href="../resources/unit_sch_V_0_0_1_ue0099_Sensor_Touch.pdf">
+        <img src="../resources/unit_pinout_v_0_0_1_ue0099_sensor_touch_en.jpg" width="500px"><br/> Schematics
     </a>
 </div>
 <br/>
@@ -32,7 +30,6 @@
 | Mode Select | Solder Jumper | Select between Momentary or Toggle mode |
 | Level Selection| Solder Jumper | Select between low and high sensitivity |
 
-
 | Mode Selection | Level Selection | Description                              |
 |----------------|-----------------|------------------------------------------|
 | 0              | 0               | Single pulse, momentary                  |
@@ -40,17 +37,16 @@
 | 1              | 0               | Pulse latch, requires another touch to release |
 | 1              | 1               | Pulse latch, requires another touch to release (inverted) |
 
-
 ## 📏 Dimensions
 
 <div align="center">
-<a href="./resources/unit_dimension_V_0_0_1_ue0099_Sensor_Touch.png"><img src="./resources/unit_dimension_V_0_0_1_ue0099_Sensor_Touch.png" width="500px"><br/> Dimensions</a>
+<div align="center"><a href="../resources/unit_dimension_V_0_0_1_ue0099_Sensor_Touch.png"><img src="../resources/unit_dimension_V_0_0_1_ue0099_Sensor_Touch.png" style="max-width: 500px; height: auto;" alt="Dimensions"><br/> Dimensions</a></div>
 </div>
 
 ## 📃 Topology
 
 <div align="center">
-<a href="./resources/unit_topology_V_0_0_1_ue0099_Sensor_Touch.png"><img src="./resources/unit_topology_V_0_0_1_ue0099_Sensor_Touch.png" width="500px"><br/> Topology</a>
+<div align="center"><a href="../resources/unit_topology_V_0_0_1_ue0099_Sensor_Touch.png"><img src="../resources/unit_topology_V_0_0_1_ue0099_Sensor_Touch.png" style="max-width: 500px; height: auto;" alt="Topology"><br/> Topology</a></div>
 <br/>
 <br/>
 
@@ -64,4 +60,3 @@
 | SB2  | Solder Bridge for Logic Level Selector   |
 
 </div>
-
