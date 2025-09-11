@@ -32,14 +32,18 @@
 | Mode Select | Solder Jumper | Select between Momentary or Toggle mode |
 | Level Selection| Solder Jumper | Select between low and high sensitivity |
 
+### **Mode and Level Selection Table**
 
-| Mode Selection | Level Selection | Description                              |
-|----------------|-----------------|------------------------------------------|
-| 0              | 0               | Single pulse, momentary                  |
-| 0              | 1               | Single pulse, toggle (inverted pulse)    |
-| 1              | 0               | Pulse latch, requires another touch to release |
-| 1              | 1               | Pulse latch, requires another touch to release (inverted) |
+| Mode Selection | Level Selection | TOG | AHLB | Pad Q (CMOS Output)                     | Pad OPDO (Open Drain Output)                | Description                                |
+|----------------|-----------------|-----|------|------------------------------------------|---------------------------------------------|--------------------------------------------|
+| 0              | 0               | 0   | 0    | Direct mode, active high                 | Direct mode, open drain active high         | Single pulse, momentary                     |
+| 0              | 1               | 0   | 1    | Direct mode, active low                  | Direct mode, open drain active low          | Single pulse, toggle (inverted pulse)       |
+| 1              | 0               | 1   | 0    | Toggle mode, power-on state = 0          | Toggle mode, power-on = High-Z, active high | Pulse latch, requires another touch to release |
+| 1              | 1               | 1   | 1    | Toggle mode, power-on state = 1          | Toggle mode, power-on = High-Z, active low  | Pulse latch, requires another touch to release (inverted) |
 
+#### Notes on the integration:
+
+The table below summarizes how the mode and level selection (left columns) determine the sensor's operative functionality. The TOG and AHLB columns represent the pad configuration bits as defined in the TTP223 datasheet. "Pad Q" and "Pad OPDO" show the output modes (CMOS or open drain), while the "Description" column provides a simplified explanation of the resulting behavior. This layout lets you quickly see how the functional mode (momentary/toggle), pad configuration, and output type relate to each other.
 
 ## 📏 Dimensions
 
