@@ -31,7 +31,7 @@ The UNIT Touch Capacitive Sensor transforms a simple touch into a precise digita
 
 ## 📚 Resources
 
-- [Schematic Diagram](hardware/schematic.pdf)
+- [Schematic Diagram](hardware/unit_sch_V_0_0_1_ue0099_Sensor_Touch.pdf)
 - [Board Dimensions (DXF)](docs/dimensions.dxf)
 - [Pinout Diagram](docs/pinout.png)
 - [Firmware Examples](firmware/)
