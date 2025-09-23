@@ -1,72 +1,74 @@
-name: � Build Documentation
+name: 📚 Deploy mdBook Documentation
 
 on:
   push:
+    branches: [ main, develop ]
+    paths:
+      - 'software/**'
+      - 'hardware/**'
+      - 'README.md'
+      - 'LICENSE'
+      - '.github/workflows/deploy-mdbook.yml'
+  pull_request:
     branches: [ main ]
     paths:
       - 'software/**'
       - 'hardware/**'
       - 'README.md'
 
-jobs:
-  build:
-    runs-on: ubuntu-latest
-    permissions:
-      contents: write
+permissions:
+  contents: read
+  pages: write
+  id-token: write
 
+# Allow one concurrent deployment
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+  build-and-deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    
     steps:
-    - name: Checkout
+    - name: Checkout repository
       uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+
+    - name: Setup Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.9'
 
     - name: Setup mdBook
-      uses: peaceiris/actions-mdbook@v1
+      uses: peaceiris/actions-mdbook@v2
       with:
         mdbook-version: '0.4.52'
 
-    - name: Setup Python
-      uses: actions/setup-python@v4
+    - name: Setup Pages
+      uses: actions/configure-pages@v5
+
+    - name: Build documentation with automation script
+      run: |
+        echo "🚀 Starting automated documentation build..."
+        python3 software/scripts/build_docs.py
+        echo "✅ Automated build completed!"
+
+    - name: Verify build output
+      run: |
+        echo "📁 Verifying software/book/book/ directory contents..."
+        ls -la software/book/book/
+        echo "✅ Documentation ready for GitHub Pages!"
+
+    - name: Upload documentation to Pages
+      uses: actions/upload-pages-artifact@v3
       with:
-        python-version: '3.x'
+        path: './software/book/book'
 
-    - name: Install Google Chrome
-      run: |
-        wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
-        echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" | sudo tee /etc/apt/sources.list.d/google-chrome.list
-        sudo apt-get update
-        sudo apt-get install -y google-chrome-stable
-
-    - name: 🔨 Build mdBook Documentation
-      run: |
-        cd software/scripts
-        python3 build_docs.py
-
-    - name: 📄 Generate Professional Datasheet
-      run: |
-        cd software/documentation
-        python3 generate_professional_pdf.py
-
-    - name: 📁 Prepare docs/ Directory
-      run: |
-        # Recreate docs directory
-        mkdir -p docs
-        
-        # Copy mdBook as main content
-        cp -r software/book/book/* docs/
-        
-        # Add professional datasheet to root of docs
-        cp software/documentation/build/datasheet_professional.html docs/
-        cp software/documentation/build/datasheet_professional.pdf docs/
-        
-        # Copy all images and resources to docs root
-        find software/documentation/build -name "*.png" -o -name "*.jpg" -o -name "*.pdf" -exec cp {} docs/ \;
-        
-        # Create .nojekyll to prevent GitHub Pages Jekyll processing
-        touch docs/.nojekyll
-
-    - name: � Commit and Push to docs/
-      run: |
-        git config --local user.email "action@github.com"
-        git config --local user.name "GitHub Action"
-        git add docs/
-        git commit -m "🚀 Auto-update documentation [skip ci]" || exit 0
-        git push
+    - name: Deploy to GitHub Pages
+      id: deployment
+      uses: actions/deploy-pages@v4
