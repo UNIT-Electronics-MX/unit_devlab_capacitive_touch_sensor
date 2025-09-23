@@ -1,4 +1,4 @@
-name: Build and Deploy Documentation
+name: � Build Documentation
 
 on:
   push:
@@ -9,15 +9,10 @@ on:
       - 'README.md'
 
 jobs:
-  build-and-deploy:
+  build:
     runs-on: ubuntu-latest
     permissions:
-      contents: read
-      pages: write
-      id-token: write
-
-    environment:
-      name: github-pages
+      contents: write
 
     steps:
     - name: Checkout
@@ -40,29 +35,38 @@ jobs:
         sudo apt-get update
         sudo apt-get install -y google-chrome-stable
 
-    - name: Build Documentation
+    - name: 🔨 Build mdBook Documentation
       run: |
-        # Build mdBook
-        cd software/scripts && python3 build_docs.py
-        cd ../../
+        cd software/scripts
+        python3 build_docs.py
+
+    - name: 📄 Generate Professional Datasheet
+      run: |
+        cd software/documentation
+        python3 generate_professional_pdf.py
+
+    - name: 📁 Prepare docs/ Directory
+      run: |
+        # Recreate docs directory
+        mkdir -p docs
         
-        # Generate professional docs
-        cd software/documentation && python3 generate_professional_pdf.py
-        cd ../../
+        # Copy mdBook as main content
+        cp -r software/book/book/* docs/
         
-        # Prepare docs directory
-        cp -r software/book/book/* docs/mdbook/
+        # Add professional datasheet to root of docs
         cp software/documentation/build/datasheet_professional.html docs/
+        cp software/documentation/build/datasheet_professional.pdf docs/
+        
+        # Copy all images and resources to docs root
         find software/documentation/build -name "*.png" -o -name "*.jpg" -o -name "*.pdf" -exec cp {} docs/ \;
+        
+        # Create .nojekyll to prevent GitHub Pages Jekyll processing
+        touch docs/.nojekyll
 
-    - name: Setup Pages
-      uses: actions/configure-pages@v3
-
-    - name: Upload Pages artifact
-      uses: actions/upload-pages-artifact@v2
-      with:
-        path: docs
-
-    - name: Deploy to GitHub Pages
-      id: deployment
-      uses: actions/deploy-pages@v2
+    - name: � Commit and Push to docs/
+      run: |
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+        git add docs/
+        git commit -m "🚀 Auto-update documentation [skip ci]" || exit 0
+        git push
