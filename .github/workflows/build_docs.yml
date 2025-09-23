@@ -36,6 +36,12 @@ jobs:
       with:
         python-version: '3.11'
 
+    - name: Install Python dependencies
+      run: |
+        pip install --upgrade pip
+        pip install -r software/documentation/requirements.txt
+        echo "✅ Python dependencies installed from requirements.txt"
+
     - name: Setup mdBook
       uses: peaceiris/actions-mdbook@v2
       with:
