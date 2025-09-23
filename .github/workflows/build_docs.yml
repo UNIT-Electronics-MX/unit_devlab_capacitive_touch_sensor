@@ -95,21 +95,35 @@ jobs:
         if [ -f "software/documentation/build/datasheet_professional.html" ]; then
           echo "📄 Copying professional datasheet..."
           cp software/documentation/build/datasheet_professional.html docs/
-          cp software/documentation/build/datasheet_professional.pdf docs/
-          echo "✅ Professional datasheet copied to docs/"
+          if [ -f "software/documentation/build/datasheet_professional.pdf" ]; then
+            cp software/documentation/build/datasheet_professional.pdf docs/
+            echo "✅ Professional datasheet HTML and PDF copied to docs/"
+          else
+            echo "⚠️ PDF not found, only HTML copied"
+          fi
         else
           echo "⚠️ Warning: Professional datasheet not found"
         fi
         
-        # Copy images and resources
+        # Copy images and resources from documentation build
         if [ -d "software/documentation/build" ]; then
-          echo "🖼️ Copying images and resources..."
-          find software/documentation/build -name "*.png" -o -name "*.jpg" -o -name "*.pdf" -exec cp {} docs/ \; 2>/dev/null || true
-          echo "✅ Images and resources copied"
+          echo "🖼️ Copying images and resources from documentation build..."
+          find software/documentation/build -type f \( -name "*.png" -o -name "*.jpg" -o -name "*.jpeg" -o -name "*.pdf" \) -print -exec cp {} docs/ \;
+          echo "✅ Documentation build resources copied"
+        fi
+        
+        # Copy hardware resources directly
+        if [ -d "hardware/resources" ]; then
+          echo "🔧 Copying hardware resources..."
+          find hardware/resources -type f \( -name "*.png" -o -name "*.jpg" -o -name "*.jpeg" -o -name "*.pdf" \) -print -exec cp {} docs/ \;
+          echo "✅ Hardware resources copied"
         fi
         
         echo "📁 Final contents of docs directory:"
         ls -la docs/
+        echo ""
+        echo "📄 PDF and image files in docs:"
+        find docs/ -type f \( -name "*.pdf" -o -name "*.png" -o -name "*.jpg" -o -name "*.jpeg" \) -ls
         
         # GitHub Pages setup
         touch docs/.nojekyll
