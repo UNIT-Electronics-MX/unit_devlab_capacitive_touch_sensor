@@ -41,12 +41,26 @@ jobs:
       with:
         mdbook-version: '0.4.52'
 
+    - name: Install Google Chrome (for PDF generation)
+      run: |
+        wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
+        echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" | sudo tee /etc/apt/sources.list.d/google-chrome.list
+        sudo apt-get update
+        sudo apt-get install -y google-chrome-stable
+
     - name: Generate documentation
       run: |
         echo "🚀 Starting documentation build..."
         cd software/scripts
         python build_docs.py
         echo "✅ Documentation generated successfully"
+
+    - name: Generate Professional PDF Documentation
+      run: |
+        echo "📄 Generating professional datasheet..."
+        cd software/documentation
+        python3 generate_professional_pdf.py
+        echo "✅ Professional documentation generated"
 
     - name: Deploy to docs directory
       run: |
@@ -69,6 +83,23 @@ jobs:
         else
           echo "❌ No mdBook build found at software/book/book"
           exit 1
+        fi
+        
+        # Copy Professional Documentation
+        if [ -f "software/documentation/build/datasheet_professional.html" ]; then
+          echo "📄 Copying professional datasheet..."
+          cp software/documentation/build/datasheet_professional.html docs/
+          cp software/documentation/build/datasheet_professional.pdf docs/
+          echo "✅ Professional datasheet copied to docs/"
+        else
+          echo "⚠️ Warning: Professional datasheet not found"
+        fi
+        
+        # Copy images and resources
+        if [ -d "software/documentation/build" ]; then
+          echo "🖼️ Copying images and resources..."
+          find software/documentation/build -name "*.png" -o -name "*.jpg" -o -name "*.pdf" -exec cp {} docs/ \; 2>/dev/null || true
+          echo "✅ Images and resources copied"
         fi
         
         echo "📁 Final contents of docs directory:"
