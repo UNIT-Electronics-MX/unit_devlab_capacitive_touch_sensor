@@ -196,6 +196,15 @@
 <li><strong>Momentary</strong>: Output HIGH only while touched</li>
 <li><strong>Toggle</strong>: Output toggles state with each touch</li>
 </ul>
+<h4 id="mode--level-selection"><a class="header" href="#mode--level-selection">Mode &amp; Level Selection</a></h4>
+<div class="table-wrapper"><table><thead><tr><th>Mode</th><th>Level</th><th>TOG</th><th>AHLB</th><th>Pad Q (CMOS)</th><th>Pad OPDO (Open Drain)</th><th>Behavior</th></tr></thead><tbody>
+<tr><td>0</td><td>0</td><td>0</td><td>0</td><td>Active high</td><td>Open drain, active high</td><td>Momentary, single pulse</td></tr>
+<tr><td>0</td><td>1</td><td>0</td><td>1</td><td>Active low</td><td>Open drain, active low</td><td>Momentary, inverted pulse</td></tr>
+<tr><td>1</td><td>0</td><td>1</td><td>0</td><td>Toggle, power-on=0</td><td>Toggle, active high</td><td>Toggle, touch to change state</td></tr>
+<tr><td>1</td><td>1</td><td>1</td><td>1</td><td>Toggle, power-on=1</td><td>Toggle, active low</td><td>Toggle, inverted</td></tr>
+</tbody></table>
+</div>
+<p><em>Mode and level solder jumpers set output type and behavior (momentary/toggle, active high/low).</em></p>
 <h3 id="4-sensitivity-adjustment"><a class="header" href="#4-sensitivity-adjustment">4. Sensitivity Adjustment</a></h3>
 <p>Adjust the onboard potentiometer:</p>
 <ul>
