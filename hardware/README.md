@@ -8,11 +8,11 @@
 </div>
 
 
-## 🔌 Pinout
+## 🔌 Configuración de Pines
 
 <div align="center">
 
-### **Pinout Diagram**
+### **Diagrama de Pines**
 
 <div align="center">
     <a href="./unit_sch_V_0_0_1_ue0099_Sensor_Touch.pdf">
@@ -22,7 +22,7 @@
 <br/>
 <br/>
 
-### **Pinout Details**
+### **Detalles de los Pines**
 
 
 | Pin Label | Function     | Notes                           |
@@ -34,10 +34,10 @@
 | Level Selection| Solder Jumper | Select between low and high sensitivity |
 
 
-## 📏 Dimensions
+## 📏 Dimensiones de la Placa
 
 <div align="center">
-<a href="./resources/unit_dimension_V_0_0_1_ue0099_Sensor_Touch.png"><img src="./resources/unit_dimension_V_0_0_1_ue0099_Sensor_Touch.png" width="500px"><br/> Dimensions</a>
+<a href="./resources/unit_dimension_V_0_0_1_ue0099_Sensor_Touch.png"><img src="./resources/unit_dimension_V_0_0_1_ue0099_Sensor_Touch.png" width="500px"><br/> Dimensiones</a>
 </div>
 
 ## 📃 Topology
