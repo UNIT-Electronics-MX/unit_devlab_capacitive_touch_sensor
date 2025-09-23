@@ -12,17 +12,17 @@ software/sphinx/pdf
 software/venv
 software/firmware
 
-# mdBook build artifacts
-software/book/book/
-software/book/src/.DS_Store
+# mdBook build directories - completely temporary
+software/book/*
+!software/book/.gitkeep
+
+# Temporary documentation files
 *.tmp
+*.temp
+docs/.temp/
 
-# mdBook local development
-docs/.mdbook-cache/
-docs/book.toml.bak
-docs/src/**/*.tmp
-docs/theme/*.tmp
-
-# Local development and testing
-book-test/
-docs-local/
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd

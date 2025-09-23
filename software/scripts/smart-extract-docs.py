@@ -11,6 +11,36 @@ import shutil
 from pathlib import Path
 from typing import Dict, List, Optional, Any
 
+def clean_emoji_from_title(text: str) -> str:
+    """Remove emoji characters from text for clean URLs."""
+    # Remove emoji characters
+    cleaned = re.sub(r'[\U0001F300-\U0001F9FF]', '', text)
+    # Remove extra whitespace
+    cleaned = re.sub(r'\s+', ' ', cleaned).strip()
+    return cleaned if cleaned else text
+
+def encode_url_spaces(url: str) -> str:
+    """Encode spaces in URLs for better web compatibility."""
+    return url.replace(' ', '%20')
+
+def get_github_repo_url():
+    """Try to detect GitHub repository URL from git remote."""
+    try:
+        import subprocess
+        result = subprocess.run(['git', 'remote', 'get-url', 'origin'], 
+                              capture_output=True, text=True, cwd=Path.cwd())
+        if result.returncode == 0:
+            url = result.stdout.strip()
+            # Convert SSH to HTTPS format
+            if url.startswith('git@github.com:'):
+                url = url.replace('git@github.com:', 'https://github.com/')
+            if url.endswith('.git'):
+                url = url[:-4]
+            return url
+    except:
+        pass
+    return None
+
 def print_status(message: str, emoji: str = "📝"):
     """Print a formatted status message."""
     print(f"{emoji} {message}")
@@ -88,23 +118,33 @@ def fix_image_sizes(content: str) -> str:
 def preserve_external_links(content: str) -> str:
     """Preserve HTML and PDF links as-is, fix local resource paths."""
     
-    # Fix local image src references to use resources folder
+    # Fix local image src references to use resources folder with URL encoding
+    def fix_src_resources(match):
+        filename = match.group(1)
+        encoded_filename = encode_url_spaces(filename)
+        return f'src="../resources/{encoded_filename}"'
+    
     content = re.sub(
         r'src="\./resources/([^"]+)"',
-        r'src="../resources/\1"',
+        fix_src_resources,
         content
     )
     
     content = re.sub(
         r'src="resources/([^"]+)"',
-        r'src="../resources/\1"',
+        lambda m: f'src="../resources/{encode_url_spaces(m.group(1))}"',
         content
     )
     
-    # Fix href links to local resources
+    # Fix href links to local resources with URL encoding
+    def fix_href_resources(match):
+        filename = match.group(1)
+        encoded_filename = encode_url_spaces(filename)
+        return f'href="../resources/{encoded_filename}"'
+    
     content = re.sub(
         r'href="\./resources/([^"]+)"',
-        r'href="../resources/\1"',
+        fix_href_resources,
         content
     )
     
@@ -181,9 +221,13 @@ def process_main_readme() -> str:
     
     readme_path = Path.cwd() / "README.md"
     if not readme_path.exists():
-        return "No main README found."
+        return "No main README found. Please create a README.md file in the project root."
     
     content = readme_path.read_text(encoding='utf-8', errors='ignore')
+    
+    # Extract the project title from the first # heading
+    title_match = re.search(r'^#\s+(.+)$', content, re.MULTILINE)
+    project_title = title_match.group(1).strip() if title_match else "Project"
     
     # Extract content after the main title
     extracted = extract_content_without_main_title(content, "Introduction")
@@ -192,7 +236,7 @@ def process_main_readme() -> str:
     extracted = re.sub(r'src="\.\./resources/', 'src="./resources/', extracted)
     extracted = re.sub(r'href="\.\./resources/', 'href="./resources/', extracted)
     
-    return f"# Touch Capacitive Sensor\n\n{extracted}"
+    return f"# {project_title}\n\n{extracted}"
 
 def process_hardware_readme() -> Dict[str, str]:
     """Process hardware README extracting sections without title duplication."""
@@ -201,6 +245,11 @@ def process_hardware_readme() -> Dict[str, str]:
     pages = {}
     
     if not hardware_path.exists():
+        # Create minimal default structure if no README exists
+        pages["overview.md"] = """# Hardware Overview
+
+No hardware README.md found. Please create hardware/README.md with your hardware documentation.
+"""
         return pages
     
     content = hardware_path.read_text(encoding='utf-8', errors='ignore')
@@ -217,6 +266,8 @@ def process_hardware_readme() -> Dict[str, str]:
     
     for i, match in enumerate(section_matches):
         section_title = match.group(1).strip()
+        # Clean the title for key generation (remove emojis for clean URLs)
+        clean_title = clean_emoji_from_title(section_title)
         section_start = match.end()
         
         # Find the end of this section (start of next section or end of content)
@@ -226,11 +277,11 @@ def process_hardware_readme() -> Dict[str, str]:
             section_end = len(content)
         
         section_content = content[section_start:section_end].strip()
-        sections[section_title.lower().replace(' ', '_').replace('-', '_')] = section_content
+        sections[clean_title.lower().replace(' ', '_').replace('-', '_')] = section_content
     
-    # Create individual pages for each section found in README
+    # Create pages from sections found in README
     for section_key, section_content in sections.items():
-        if section_content.strip():
+        if section_content.strip():  # Only create if there's content
             # Clean section name for filename
             clean_section_name = section_key.replace('_', '-')
             section_display_name = section_key.replace('_', ' ').title()
@@ -255,63 +306,100 @@ def process_software_content() -> Dict[str, str]:
         # Extract content without main title duplication
         clean_content = extract_content_without_main_title(content, "Getting Started")
         pages["getting-started.md"] = f"# Getting Started\n\n{clean_content}"
+    else:
+        # Fallback if no README exists
+        pages["getting-started.md"] = """# Getting Started
+
+Please create a software/README.md file with getting started instructions.
+"""
     
     # Extract real code examples from files
     examples_content = "# Examples\n\n"
     
-    # Process MicroPython example
-    mp_example_path = Path.cwd() / "software" / "examples" / "mp" / "sensor_touch.py"
-    if mp_example_path.exists():
-        mp_code = mp_example_path.read_text(encoding='utf-8', errors='ignore')
-        examples_content += """## MicroPython Example
+    # Add examples overview
+    examples_content += """## Arduino/C++ Examples
 
-### Basic Touch Detection
-
-```python
-""" + mp_code + """```
-
-### Usage
-1. Upload this file to your MicroPython board
-2. Connect the touch sensor to the specified pin
-3. Run the script to see touch detection in action
+The following examples demonstrate various features of this development board.
 
 """
     
     # Process C/Arduino examples
-    c_example_dir = Path.cwd() / "software" / "examples" / "c" / "example"
+    c_example_dir = Path.cwd() / "software" / "examples" / "c"
+    github_url = get_github_repo_url()
+    
     if c_example_dir.exists():
-        examples_content += "## C/Arduino Examples\n\n"
         
-        # Look for .c, .cpp, .ino files
-        for code_file in c_example_dir.rglob("*"):
-            if code_file.suffix in ['.c', '.cpp', '.ino', '.h']:
-                try:
-                    code_content = code_file.read_text(encoding='utf-8', errors='ignore')
-                    file_type = "C" if code_file.suffix == '.c' else "C++" if code_file.suffix in ['.cpp', '.ino'] else "Header"
-                    
-                    examples_content += f"""### {code_file.name} ({file_type})
-
-```{code_file.suffix[1:]}
-{code_content}```
+        # Look for .ino files in subdirectories
+        for example_dir in c_example_dir.iterdir():
+            if example_dir.is_dir():
+                for code_file in example_dir.rglob("*.ino"):
+                    try:
+                        code_content = code_file.read_text(encoding='utf-8', errors='ignore')
+                        
+                        # Extract first 20 lines as preview
+                        lines = code_content.split('\n')
+                        preview_lines = lines[:20]
+                        preview = '\n'.join(preview_lines)
+                        
+                        # Generate GitHub link if repository URL is available
+                        code_link = ""
+                        if github_url:
+                            # Create GitHub blob URL for the file
+                            relative_path = f"software/examples/c/{example_dir.name}/{code_file.name}"
+                            code_link = f"[📄 Ver código completo en GitHub]({github_url}/blob/main/{relative_path})"
+                        else:
+                            code_link = f"[📄 Código completo: {code_file.name}](#{example_dir.name.lower()})"
+                        
+                        examples_content += f"""### ⚡ {example_dir.name}: {code_file.name}
+```cpp
+{preview}
+```
+{code_link}
 
 """
-                except:
-                    continue
+                    except Exception as e:
+                        continue
     
-    # Add examples overview if no specific examples found
-    if examples_content == "# Examples\n\n":
-        examples_content += """## Available Examples
+    # Add default message if no examples found
+    if examples_content == "# Examples\n\n## Arduino/C++ Examples\n\nThe following examples demonstrate various features of the UNIT JUN R3 Development Board.\n\n":
+        examples_content += """No code examples found. Please add example files to software/examples/ directory.
 
-Check the `software/examples/` directory for:
-
-- **MicroPython**: `mp/sensor_touch.py`
-- **C/Arduino**: `c/example/` directory
-
-## Basic Usage Pattern
-
-The touch sensor provides a simple digital output that can be read by any microcontroller."""
+## Directory Structure Expected:
+```
+software/examples/
+├── c/
+│   ├── example1/
+│   │   └── example1.ino
+│   └── example2/
+│       └── example2.ino
+└── python/
+    ├── example1.py
+    └── example2.py
+```
+"""
     
     pages["examples.md"] = examples_content
+    
+    # Create individual example pages
+    pages["examples/arduino.md"] = """# Arduino Examples
+
+This section contains Arduino/C++ examples extracted from the software/examples/c/ directory.
+
+If no examples are shown above, please add your Arduino sketch files (.ino) to:
+- software/examples/c/example_name/example_name.ino
+
+The examples will be automatically detected and displayed here.
+"""
+
+    pages["examples/micropython.md"] = """# Python Examples
+
+This section would contain Python examples if any are found in the software/examples/python/ directory.
+
+To add Python examples, create files in:
+- software/examples/python/example_name.py
+
+Python examples will be automatically detected and displayed here.
+"""
     
     return pages
 
@@ -335,6 +423,59 @@ def process_license() -> str:
 
 No license file found in the repository.
 """
+
+def create_resources_page() -> str:
+    """Create resources page with links to datasheet and documentation."""
+    
+    resources_content = """# Datasheet & Documentation
+
+## 📄 Professional Datasheet
+
+Complete technical specifications and professional documentation.
+
+📎 **<a href="../datasheet_professional.html" target="_blank">View Professional Datasheet</a>** - Interactive HTML version
+
+📎 **<a href="resources/datasheet_professional.pdf" target="_blank">Download PDF Datasheet</a>** - Downloadable PDF version
+
+## 🔗 Additional Resources
+
+### Hardware Resources
+- 🔌 [Schematic Diagram](resources/unit_sch_v_0_0_1_ue0081_Jun-R3.pdf) - Complete circuit schematic
+- 📐 [Board Dimensions](hardware/board-dimensions.md) - Physical specifications
+- 🔧 [Pinout Reference](hardware/pinout.md) - Pin configuration details
+
+### Software Resources
+- 💻 [Getting Started Guide](software/getting-started.md) - Setup and first steps  
+- 📝 [Code Examples](software/examples.md) - Arduino sketches and demos
+- 🛠️ [Development Setup](software/getting-started.md#development-environment) - IDE configuration
+
+### External Links
+"""
+
+    # Add GitHub link if available
+    github_url = get_github_repo_url()
+    if github_url:
+        resources_content += f"- 🔗 <a href=\"{github_url}\" target=\"_blank\">Source Code Repository</a> - Complete project files\n"
+    
+    resources_content += """
+## 📋 Quick Reference
+
+| Resource Type | Description | Link |
+|---------------|-------------|------|
+| 📄 **Datasheet (HTML)** | Interactive technical specs | <a href="../datasheet_professional.html" target="_blank">View</a> |
+| 📄 **Datasheet (PDF)** | Downloadable technical specs | <a href="resources/datasheet_professional.pdf" target="_blank">PDF</a> |
+| 🔌 **Schematic** | Circuit diagram | <a href="resources/unit_sch_v_0_0_1_ue0081_Jun-R3.pdf" target="_blank">PDF</a> |
+| � **Dimensions** | Board measurements | [View](hardware/board-dimensions.md) |
+| 🔧 **Pinout** | Pin configuration | [View](hardware/pinout.md) |
+| �💻 **Examples** | Code samples | [View](software/examples.md) |
+| 🔧 **Setup Guide** | Getting started | [View](software/getting-started.md) |
+
+---
+
+*For the most up-to-date information, please refer to the official documentation and repository.*
+"""
+    
+    return resources_content
 
 def copy_resources():
     """Copy image resources and PDFs without duplication."""
@@ -416,8 +557,10 @@ def create_summary() -> str:
         
         for match in section_matches:
             section_title = match.group(1).strip()
-            clean_section_name = section_title.lower().replace(' ', '-').replace('_', '-')
-            summary += f"\n- [{section_title}](./hardware/{clean_section_name}.md)"
+            # Use clean title for both display and filename
+            clean_title = clean_emoji_from_title(section_title)
+            clean_section_name = clean_title.lower().replace(' ', '-').replace('_', '-')
+            summary += f"\n- [{clean_title}](./hardware/{clean_section_name}.md)"
     
     summary += """
 
@@ -425,6 +568,10 @@ def create_summary() -> str:
 
 - [Getting Started](./software/getting-started.md)
 - [Examples](./software/examples.md)
+
+# Resources
+
+- [Datasheet & Documentation](./resources.md)
 
 # Additional Information
 
@@ -459,10 +606,14 @@ def main():
     print_status("Procesando licencia...", "📄")
     license_content = process_license()
     
+    print_status("Creando página de recursos...", "📋")
+    resources_content = create_resources_page()
+    
     # Prepare all files
     all_files = {
         "introduction.md": intro_content,
         "license.md": license_content,
+        "resources.md": resources_content,
         "SUMMARY.md": create_summary()
     }
     
