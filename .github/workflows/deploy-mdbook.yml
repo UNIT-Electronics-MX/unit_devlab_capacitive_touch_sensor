@@ -1,14 +1,12 @@
-name: 📚 Deploy mdBook Documentation
+name: Deploy Complete Documentation to GitHub Pages
 
 on:
   push:
-    branches: [ main, develop ]
+    branches: [ main ]
     paths:
       - 'software/**'
       - 'hardware/**'
       - 'README.md'
-      - 'LICENSE'
-      - '.github/workflows/deploy-mdbook.yml'
   pull_request:
     branches: [ main ]
     paths:
@@ -16,59 +14,73 @@ on:
       - 'hardware/**'
       - 'README.md'
 
-permissions:
-  contents: read
-  pages: write
-  id-token: write
-
-# Allow one concurrent deployment
-concurrency:
-  group: "pages"
-  cancel-in-progress: false
-
 jobs:
-  build-and-deploy:
+  deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
-    runs-on: ubuntu-latest
-    
-    steps:
-    - name: Checkout repository
-      uses: actions/checkout@v4
-      with:
-        fetch-depth: 0
 
-    - name: Setup Python
-      uses: actions/setup-python@v5
-      with:
-        python-version: '3.9'
+    steps:
+    - uses: actions/checkout@v4
 
     - name: Setup mdBook
-      uses: peaceiris/actions-mdbook@v2
+      uses: peaceiris/actions-mdbook@v1
       with:
         mdbook-version: '0.4.52'
 
-    - name: Setup Pages
-      uses: actions/configure-pages@v5
-
-    - name: Build documentation with automation script
-      run: |
-        echo "🚀 Starting automated documentation build..."
-        python3 software/scripts/build_docs.py
-        echo "✅ Automated build completed!"
-
-    - name: Verify build output
-      run: |
-        echo "📁 Verifying software/book/book/ directory contents..."
-        ls -la software/book/book/
-        echo "✅ Documentation ready for GitHub Pages!"
-
-    - name: Upload documentation to Pages
-      uses: actions/upload-pages-artifact@v3
+    - name: Setup Python
+      uses: actions/setup-python@v4
       with:
-        path: './software/book/book'
+        python-version: '3.x'
+
+    - name: Install Google Chrome (for PDF generation)
+      run: |
+        wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
+        echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" | sudo tee /etc/apt/sources.list.d/google-chrome.list
+        sudo apt-get update
+        sudo apt-get install -y google-chrome-stable
+
+    - name: Build Complete Documentation
+      run: |
+        cd software/scripts
+        python3 build_docs.py
+        
+    - name: Generate Professional Documentation
+      run: |
+        cd software/documentation
+        python3 generate_professional_pdf.py
+
+    - name: Prepare docs directory
+      run: |
+        # Copy mdBook build
+        cp -r software/book/book/* docs/mdbook/
+        
+        # Copy professional documentation
+        if [ -f software/documentation/build/datasheet_professional.html ]; then
+          cp software/documentation/build/datasheet_professional.html docs/
+        fi
+        
+        # Copy images and resources
+        if [ -d software/documentation/build ]; then
+          find software/documentation/build -name "*.png" -o -name "*.jpg" -o -name "*.pdf" | while read file; do
+            cp "$file" docs/ 2>/dev/null || true
+          done
+        fi
+
+    - name: Setup Pages
+      uses: actions/configure-pages@v3
+
+    - name: Upload artifact
+      uses: actions/upload-pages-artifact@v2
+      with:
+        path: './docs'
 
     - name: Deploy to GitHub Pages
       id: deployment
-      uses: actions/deploy-pages@v4
+      uses: actions/deploy-pages@v2
