@@ -24,6 +24,7 @@
 
 ### **Pinout Details**
 
+
 | Pin Label | Function     | Notes                           |
 |-----------|--------------|---------------------------------|
 | VCC       | Power Supply | 3.3V or 5V, depending on design  |
@@ -32,16 +33,6 @@
 | Mode Select | Solder Jumper | Select between Momentary or Toggle mode |
 | Level Selection| Solder Jumper | Select between low and high sensitivity |
 
-#### Mode & Level Selection
-
-| Mode | Level | TOG | AHLB | Pad Q (CMOS)         | Pad OPDO (Open Drain)    | Behavior                        |
-|------|-------|-----|------|----------------------|--------------------------|----------------------------------|
-| 0    | 0     | 0   | 0    | Active high          | Open drain, active high  | Momentary, single pulse          |
-| 0    | 1     | 0   | 1    | Active low           | Open drain, active low   | Momentary, inverted pulse        |
-| 1    | 0     | 1   | 0    | Toggle, power-on=0   | Toggle, active high      | Toggle, touch to change state    |
-| 1    | 1     | 1   | 1    | Toggle, power-on=1   | Toggle, active low       | Toggle, inverted                 |
-
-*Mode and level solder jumpers set output type and behavior (momentary/toggle, active high/low).*
 
 ## 📏 Dimensions
 

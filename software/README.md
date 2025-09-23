@@ -23,6 +23,18 @@ Use the onboard jumper to select operation mode:
 - **Momentary**: Output HIGH only while touched
 - **Toggle**: Output toggles state with each touch
 
+
+#### Mode & Level Selection
+
+| Mode | Level | TOG | AHLB | Pad Q (CMOS)         | Pad OPDO (Open Drain)    | Behavior                        |
+|------|-------|-----|------|----------------------|--------------------------|----------------------------------|
+| 0    | 0     | 0   | 0    | Active high          | Open drain, active high  | Momentary, single pulse          |
+| 0    | 1     | 0   | 1    | Active low           | Open drain, active low   | Momentary, inverted pulse        |
+| 1    | 0     | 1   | 0    | Toggle, power-on=0   | Toggle, active high      | Toggle, touch to change state    |
+| 1    | 1     | 1   | 1    | Toggle, power-on=1   | Toggle, active low       | Toggle, inverted                 |
+
+*Mode and level solder jumpers set output type and behavior (momentary/toggle, active high/low).*
+
 ### 4. Sensitivity Adjustment
 
 Adjust the onboard potentiometer:
