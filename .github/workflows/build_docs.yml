@@ -1,4 +1,4 @@
-name: 🚀 Build Documentation
+name: Build Documentation
 
 on:
   push:
@@ -40,7 +40,7 @@ jobs:
       run: |
         pip install --upgrade pip
         pip install -r software/documentation/requirements.txt
-        echo "✅ Python dependencies installed from requirements.txt"
+        echo "Python dependencies installed from requirements.txt"
 
     - name: Setup mdBook
       uses: peaceiris/actions-mdbook@v2
@@ -56,24 +56,24 @@ jobs:
 
     - name: Generate documentation
       run: |
-        echo "🚀 Starting documentation build..."
+        echo "Starting documentation build..."
         cd software/scripts
         python build_docs.py
-        echo "✅ Documentation generated successfully"
+        echo "Documentation generated successfully"
 
     - name: Generate Professional PDF Documentation
       run: |
-        echo "📄 Generating professional datasheet..."
+        echo "Generating professional datasheet..."
         cd software/documentation
-        echo "📁 Current directory: $(pwd)"
-        echo "📂 Directory contents before generation:"
+        echo "Current directory: $(pwd)"
+        echo "Directory contents before generation:"
         ls -la
         python3 generate_professional_pdf.py
-        echo "📂 Directory contents after generation:"
+        echo "Directory contents after generation:"
         ls -la
-        echo "📂 Build directory contents:"
+        echo "Build directory contents:"
         ls -la build/ 2>/dev/null || echo "Build directory not found"
-        echo "✅ Professional documentation generation completed"
+        echo "Professional documentation generation completed"
 
     - name: Deploy to docs directory
       run: |
@@ -82,64 +82,63 @@ jobs:
         
         # Copy mdBook documentation
         if [ -d "software/book/book" ]; then
-          echo "📁 Copying mdBook documentation..."
+          echo "Copying mdBook documentation..."
           
           # Clear existing docs and copy new content
           rm -rf docs/mdbook
           mkdir -p docs/mdbook
           cp -r software/book/book/* docs/mdbook/
-          echo "✅ mdBook documentation copied to docs/mdbook/"
+          echo "mdBook documentation copied to docs/mdbook/"
           
           # Create simple index.html redirect to mdbook
           echo '<!DOCTYPE html><html><head><meta http-equiv="refresh" content="0; url=./mdbook/index.html"><title>Documentation</title></head><body><p>Redirecting... <a href="./mdbook/index.html">Click here if not redirected</a></p></body></html>' > docs/index.html
-          echo "✅ Index redirect created"
+          echo "Index redirect created"
         else
-          echo "❌ No mdBook build found at software/book/book"
+          echo "ERROR: No mdBook build found at software/book/book"
           exit 1
         fi
         
         # Copy Professional Documentation
-        echo "🔍 Checking for professional documentation..."
+        echo "Checking for professional documentation..."
         if [ -f "software/documentation/build/datasheet_professional.html" ]; then
-          echo "📄 Found professional datasheet HTML, copying..."
+          echo "Found professional datasheet HTML, copying..."
           cp software/documentation/build/datasheet_professional.html docs/
           if [ -f "software/documentation/build/datasheet_professional.pdf" ]; then
             cp software/documentation/build/datasheet_professional.pdf docs/
-            echo "✅ Professional datasheet HTML and PDF copied to docs/"
+            echo "Professional datasheet HTML and PDF copied to docs/"
           else
-            echo "⚠️ PDF not found at software/documentation/build/datasheet_professional.pdf"
+            echo "WARNING: PDF not found at software/documentation/build/datasheet_professional.pdf"
           fi
         else
-          echo "❌ Professional datasheet HTML not found at software/documentation/build/datasheet_professional.html"
-          echo "📂 Contents of software/documentation/build/:"
+          echo "ERROR: Professional datasheet HTML not found at software/documentation/build/datasheet_professional.html"
+          echo "Contents of software/documentation/build/:"
           ls -la software/documentation/build/ 2>/dev/null || echo "Build directory does not exist"
         fi
         
         # Copy images and resources from documentation build
         if [ -d "software/documentation/build" ]; then
-          echo "🖼️ Copying images and resources from documentation build..."
+          echo "Copying images and resources from documentation build..."
           find software/documentation/build -type f \( -name "*.png" -o -name "*.jpg" -o -name "*.jpeg" -o -name "*.pdf" \) -print -exec cp {} docs/ \;
-          echo "✅ Documentation build resources copied"
+          echo "Documentation build resources copied"
         fi
         
         # Copy hardware resources directly
         if [ -d "hardware/resources" ]; then
-          echo "🔧 Copying hardware resources..."
+          echo "Copying hardware resources..."
           find hardware/resources -type f \( -name "*.png" -o -name "*.jpg" -o -name "*.jpeg" -o -name "*.pdf" \) -print -exec cp {} docs/ \;
-          echo "✅ Hardware resources copied"
+          echo "Hardware resources copied"
         fi
         
-        echo "📁 Final contents of docs directory:"
+        echo "Final contents of docs directory:"
         ls -la docs/
         echo ""
-        echo "📄 PDF and image files in docs:"
+        echo "PDF and image files in docs:"
         find docs/ -type f \( -name "*.pdf" -o -name "*.png" -o -name "*.jpg" -o -name "*.jpeg" \) -ls
         
         # GitHub Pages setup
         touch docs/.nojekyll
 
     - name: Deploy to repository
-      if: github.ref == 'refs/heads/main' && github.event_name == 'push'
       run: |
         git config --local user.name "github-actions[bot]"
         git config --local user.email "github-actions[bot]@users.noreply.github.com"
@@ -148,4 +147,6 @@ jobs:
         if ! git diff --staged --quiet; then
           git commit -m "Deploy documentation [skip ci]"
           git push origin main
+        else
+          echo "No changes to commit"
         fi
