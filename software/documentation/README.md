@@ -44,58 +44,15 @@ El formato se mantendrá automáticamente en el PDF generado.
 - **Wide supply range**: 2.0 V to 5.5 V, compatible with 3.3 V and 5 V systems.  
 - **Low power**: < 1 μA in standby mode.
 
-## Applications
-
-<!-- FILL HERE -->
-- User interfaces for wearables and handheld devices
-
-- Touch-activated lamps, buzzers or relays
-
-- Capacitive keyboards and remote controls
-
-- Home automation touch panels
-
-- Interactive art installations
 
 ## Features
 
 <!-- FILL HERE -->
 - **Touch-only sensing**: No physical press required – reacts to proximity of a finger.    
 - **Fast response**: < 80 ms touch detection time.  
-- **Auto-calibration**: Compensates for environmental changes and drift.  
 - **Selectable modes**: Momentary or toggle output (via solder-jumper on the board).  
 - **On-board pull-up/down**: Ensures clean digital output.  
 - **Mounting holes**: Two M3 screw holes for easy panel integration.  
-- **JST PH-2.0 connector**: Quick-disconnect cable interface.
+- **JST PH-1.0 mm connector**: Quick-disconnect cable interface.
 
 
-
-
-
-## Block Diagram
-
-![Function diagram](../../hardware/resources/unit_pinout_v_0_0_1_ue0099_sensor_touch_en.png) <!-- FILL HERE: replace image if needed -->
-
-## Dimensions
-
-![Dimensions](../../hardware/resources/unit_dimension_V_0_0_1_ue0099_Sensor_Touch.png) <!-- FILL HERE: replace image if needed -->
-
-## Usage
-
-<!-- FILL HERE -->
-Mention supported development platforms and toolchains 
-
-- (e.g., Arduino IDE, ESP-IDF, PlatformIO, etc.)
-
-## Downloads
-
-<!-- FILL HERE -->
-- [Schematic PDF](docs/schematic.pdf)
-- [Board Dimensions DXF](docs/dimensions.dxf)
-- [Pinout Diagram PNG](docs/pinout.png)
-
-## Purchase
-
-<!-- FILL HERE -->
-- [Buy from vendor](https://example.com)
-- [Product page](https://example.com/product/template-board)
