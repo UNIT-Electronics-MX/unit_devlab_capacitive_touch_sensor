@@ -65,8 +65,15 @@ jobs:
       run: |
         echo "📄 Generating professional datasheet..."
         cd software/documentation
+        echo "📁 Current directory: $(pwd)"
+        echo "📂 Directory contents before generation:"
+        ls -la
         python3 generate_professional_pdf.py
-        echo "✅ Professional documentation generated"
+        echo "📂 Directory contents after generation:"
+        ls -la
+        echo "📂 Build directory contents:"
+        ls -la build/ 2>/dev/null || echo "Build directory not found"
+        echo "✅ Professional documentation generation completed"
 
     - name: Deploy to docs directory
       run: |
@@ -92,17 +99,20 @@ jobs:
         fi
         
         # Copy Professional Documentation
+        echo "🔍 Checking for professional documentation..."
         if [ -f "software/documentation/build/datasheet_professional.html" ]; then
-          echo "📄 Copying professional datasheet..."
+          echo "📄 Found professional datasheet HTML, copying..."
           cp software/documentation/build/datasheet_professional.html docs/
           if [ -f "software/documentation/build/datasheet_professional.pdf" ]; then
             cp software/documentation/build/datasheet_professional.pdf docs/
             echo "✅ Professional datasheet HTML and PDF copied to docs/"
           else
-            echo "⚠️ PDF not found, only HTML copied"
+            echo "⚠️ PDF not found at software/documentation/build/datasheet_professional.pdf"
           fi
         else
-          echo "⚠️ Warning: Professional datasheet not found"
+          echo "❌ Professional datasheet HTML not found at software/documentation/build/datasheet_professional.html"
+          echo "📂 Contents of software/documentation/build/:"
+          ls -la software/documentation/build/ 2>/dev/null || echo "Build directory does not exist"
         fi
         
         # Copy images and resources from documentation build
