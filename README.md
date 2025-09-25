@@ -12,6 +12,18 @@ The UNIT Touch Capacitive Sensor transforms a simple touch into a precise digita
 </div>
 
 
+<div align="center">
+
+### Quick Setup
+
+
+[<img src="https://img.shields.io/badge/Product%20Wiki-blue?style=for-the-badge" alt="Product Wiki">](https://unit-electronics-mx.github.io/unit_touch_capacitive_sensor/mdbook/index.html)
+[<img src="https://img.shields.io/badge/Datasheet-green?style=for-the-badge" alt="Datasheet">](https://unit-electronics-mx.github.io/unit_touch_capacitive_sensor/datasheet_professional.html)
+[<img src="https://img.shields.io/badge/Buy%20Now-orange?style=for-the-badge" alt="Buy Now">](https://uelectronics.com/)
+[<img src="https://img.shields.io/badge/Getting%20Started-purple?style=for-the-badge" alt="Getting Started">](https://unit-electronics-mx.github.io/unit_touch_capacitive_sensor/mdbook/software/getting-started.html)
+
+</div>
+
 ## 📦 Overview
 
 | Feature              | Description                                                                                                                                      |
@@ -31,14 +43,13 @@ The UNIT Touch Capacitive Sensor transforms a simple touch into a precise digita
 
 ## 📚 Resources
 
-- [Schematic Diagram](hardware/schematic.pdf)
-- [Board Dimensions (DXF)](docs/dimensions.dxf)
-- [Pinout Diagram](docs/pinout.png)
-- [Firmware Examples](firmware/)
+- [Schematic Diagram](https://github.com/UNIT-Electronics-MX/unit_touch_capacitive_sensor/blob/main/hardware/unit_sch_V_0_0_1_ue0099_Sensor_Touch.pdf)
+
+- [Pinout Diagram](https://github.com/UNIT-Electronics-MX/unit_touch_capacitive_sensor/tree/main/hardware#-pinout)
 - [Getting Started Guide](docs/getting_started.md)
 
 
-
+  
 ## 📝 License
 
 All hardware and documentation in this project are licensed under the **MIT License**.  
