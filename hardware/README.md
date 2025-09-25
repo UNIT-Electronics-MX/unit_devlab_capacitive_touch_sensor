@@ -10,7 +10,6 @@
 
 ## 🔌 Pinout
 
-<div align="center">
 
 ### **Pinout Diagram**
 
