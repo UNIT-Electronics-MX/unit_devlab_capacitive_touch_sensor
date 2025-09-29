@@ -37,8 +37,9 @@ The UNIT Touch Capacitive Sensor transforms a simple touch into a precise digita
 ## 🧪 Use Cases
 
 - Touch-sensitive controls for user interfaces
-- Proximity sensing for devices
-
+- Wearable technology with touch input
+- Home automation touch switches
+- Robotics and IoT projects requiring simple touch input
 
 
 ## 📚 Resources
