@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
-Extractor inteligente de contenido que NO duplica títulos
-Extrae SOLO el contenido útil sin alterar los README originales
+Smart content extractor that does NOT duplicate titles.
+Extracts ONLY useful content without altering the original READMEs.
 """
 
 import os
@@ -13,8 +13,10 @@ from typing import Dict, List, Optional, Any
 
 def clean_emoji_from_title(text: str) -> str:
     """Remove emoji characters from text for clean URLs."""
-    # Remove emoji characters
-    cleaned = re.sub(r'[\U0001F300-\U0001F9FF]', '', text)
+    # Remove emoji characters (broader range to include ⚙️ and other symbols)
+    cleaned = re.sub(r'[\U0001F000-\U0001F9FF]', '', text)  # Extended range
+    cleaned = re.sub(r'[\u2600-\u26FF]', '', cleaned)      # Additional symbol range  
+    cleaned = re.sub(r'[\u2700-\u27BF]', '', cleaned)      # Dingbats range (includes ⚙️)
     # Remove extra whitespace
     cleaned = re.sub(r'\s+', ' ', cleaned).strip()
     return cleaned if cleaned else text
@@ -41,9 +43,21 @@ def get_github_repo_url():
         pass
     return None
 
-def print_status(message: str, emoji: str = "📝"):
+def get_github_pages_url():
+    """Generate GitHub Pages URL from repository URL."""
+    repo_url = get_github_repo_url()
+    if repo_url and 'github.com' in repo_url:
+        # Extract owner and repo from https://github.com/owner/repo
+        parts = repo_url.split('/')
+        if len(parts) >= 5:
+            owner = parts[-2]
+            repo = parts[-1]
+            return f"https://{owner}.github.io/{repo}"
+    return None
+
+def print_status(message: str, emoji: str = ""):
     """Print a formatted status message."""
-    print(f"{emoji} {message}")
+    print(f"{message}")
 
 def read_file_content(file_path):
     """Read content from a file with error handling."""
@@ -205,8 +219,8 @@ def extract_content_without_main_title(content: str, page_title: str) -> str:
     result = re.sub(r'\n\s*\n\s*\n+', '\n\n', result)
     
     # Fix image paths
-    result = re.sub(r'hardware/resources/', './resources/', result)
-    result = re.sub(r'\.\./\.\./\.\./\.\./hardware/resources/', './resources/', result)
+    result = re.sub(r'hardware/resources/', 'resources/', result)
+    result = re.sub(r'\.\./\.\./\.\./\.\./hardware/resources/', 'resources/', result)
     
     # Preserve external links and fix local paths
     result = preserve_external_links(result)
@@ -232,9 +246,11 @@ def process_main_readme() -> str:
     # Extract content after the main title
     extracted = extract_content_without_main_title(content, "Introduction")
     
-    # For introduction.md, fix paths to use ./resources/ instead of ../resources/
-    extracted = re.sub(r'src="\.\./resources/', 'src="./resources/', extracted)
-    extracted = re.sub(r'href="\.\./resources/', 'href="./resources/', extracted)
+    # For introduction.md, fix paths to use resources/ (relative to src directory)
+    extracted = re.sub(r'src="\.\./resources/', 'src="resources/', extracted)
+    extracted = re.sub(r'href="\.\./resources/', 'href="resources/', extracted)
+    extracted = re.sub(r'src="\./', 'src="resources/', extracted)
+    extracted = re.sub(r'href="\./', 'href="resources/', extracted)
     
     return f"# {project_title}\n\n{extracted}"
 
@@ -328,8 +344,35 @@ The following examples demonstrate various features of this development board.
     github_url = get_github_repo_url()
     
     if c_example_dir.exists():
+        # First, look for .ino files directly in the c/ directory (current structure)
+        for code_file in c_example_dir.glob("*.ino"):
+            try:
+                code_content = code_file.read_text(encoding='utf-8', errors='ignore')
+                
+                # Extract first 20 lines as preview
+                lines = code_content.split('\n')
+                preview_lines = lines[:20]
+                preview = '\n'.join(preview_lines)
+                
+                # Generate GitHub link if repository URL is available
+                code_link = ""
+                if github_url:
+                    relative_path = f"software/examples/c/{code_file.name}"
+                    code_link = f"[See complete code on GitHub]({github_url}/blob/main/{relative_path})"
+                else:
+                    code_link = f"[See complete code on GitHub: {code_file.name}](#{code_file.stem.lower()})"
+                
+                examples_content += f"""### {code_file.stem}
+```cpp
+{preview}
+```
+{code_link}
+
+"""
+            except Exception as e:
+                continue
         
-        # Look for .ino files in subdirectories
+        # Then look for .ino files in subdirectories (backward compatibility)
         for example_dir in c_example_dir.iterdir():
             if example_dir.is_dir():
                 for code_file in example_dir.rglob("*.ino"):
@@ -346,11 +389,11 @@ The following examples demonstrate various features of this development board.
                         if github_url:
                             # Create GitHub blob URL for the file
                             relative_path = f"software/examples/c/{example_dir.name}/{code_file.name}"
-                            code_link = f"[📄 Ver código completo en GitHub]({github_url}/blob/main/{relative_path})"
+                            code_link = f"[See complete code on GitHub]({github_url}/blob/main/{relative_path})"
                         else:
-                            code_link = f"[📄 Código completo: {code_file.name}](#{example_dir.name.lower()})"
+                            code_link = f"[See complete code on GitHub: {code_file.name}](#{example_dir.name.lower()})"
                         
-                        examples_content += f"""### ⚡ {example_dir.name}: {code_file.name}
+                        examples_content += f"""### {example_dir.name}: {code_file.name}
 ```cpp
 {preview}
 ```
@@ -360,19 +403,102 @@ The following examples demonstrate various features of this development board.
                     except Exception as e:
                         continue
     
+    # Process MicroPython examples
+    micropython_example_dir = Path.cwd() / "software" / "examples" / "micropython"
+    
+    if micropython_example_dir.exists():
+        examples_content += """
+
+## MicroPython Examples
+
+The following MicroPython examples demonstrate usage with microcontrollers.
+
+"""
+        
+        # Look for .py files in micropython directory
+        for code_file in micropython_example_dir.glob("*.py"):
+            try:
+                code_content = code_file.read_text(encoding='utf-8', errors='ignore')
+                
+                # Extract first 20 lines as preview
+                lines = code_content.split('\n')
+                preview_lines = lines[:20]
+                preview = '\n'.join(preview_lines)
+                
+                # Generate GitHub link if repository URL is available
+                code_link = ""
+                if github_url:
+                    relative_path = f"software/examples/micropython/{code_file.name}"
+                    code_link = f"[See complete code on GitHub]({github_url}/blob/main/{relative_path})"
+                else:
+                    code_link = f"[See complete code on GitHub: {code_file.name}](#{code_file.stem.lower()})"
+                
+                examples_content += f"""### {code_file.stem}
+```python
+{preview}
+```
+{code_link}
+
+"""
+            except Exception as e:
+                continue
+    
+    # Also check regular python directory for backward compatibility
+    python_example_dir = Path.cwd() / "software" / "examples" / "python"
+    if python_example_dir.exists():
+        if not micropython_example_dir.exists():
+            examples_content += """
+
+## Python Examples
+
+The following Python examples demonstrate usage with the sensor.
+
+"""
+        
+        for code_file in python_example_dir.glob("*.py"):
+            try:
+                code_content = code_file.read_text(encoding='utf-8', errors='ignore')
+                
+                # Extract first 20 lines as preview
+                lines = code_content.split('\n')
+                preview_lines = lines[:20]
+                preview = '\n'.join(preview_lines)
+                
+                # Generate GitHub link if repository URL is available
+                code_link = ""
+                if github_url:
+                    relative_path = f"software/examples/python/{code_file.name}"
+                    code_link = f"[See complete code on GitHub]({github_url}/blob/main/{relative_path})"
+                else:
+                    code_link = f"[See complete code on GitHub: {code_file.name}](#{code_file.stem.lower()})"
+                
+                examples_content += f"""### {code_file.stem}
+```python
+{preview}
+```
+{code_link}
+
+"""
+            except Exception as e:
+                continue
+    
     # Add default message if no examples found
     if examples_content == "# Examples\n\n## Arduino/C++ Examples\n\nThe following examples demonstrate various features of the UNIT JUN R3 Development Board.\n\n":
         examples_content += """No code examples found. Please add example files to software/examples/ directory.
 
-## Directory Structure Expected:
+## Directory Structure Supported:
 ```
 software/examples/
 ├── c/
-│   ├── example1/
+│   ├── light_sensor.ino        # Direct files (current structure)
+│   ├── example1/               # Or in subdirectories
 │   │   └── example1.ino
 │   └── example2/
 │       └── example2.ino
-└── python/
+├── micropython/                # Preferred for MicroPython
+│   ├── light_sensor.py
+│   └── other_example.py
+└── python/                     # Alternative Python location
     ├── example1.py
     └── example2.py
 ```
@@ -385,20 +511,24 @@ software/examples/
 
 This section contains Arduino/C++ examples extracted from the software/examples/c/ directory.
 
-If no examples are shown above, please add your Arduino sketch files (.ino) to:
-- software/examples/c/example_name/example_name.ino
+## Supported Structures
+The system detects examples in the following locations:
+- Direct files: `software/examples/c/example_name.ino`
+- Subdirectories: `software/examples/c/example_name/example_name.ino`
 
 The examples will be automatically detected and displayed here.
 """
 
-    pages["examples/micropython.md"] = """# Python Examples
+    pages["examples/micropython.md"] = """# MicroPython Examples
 
-This section would contain Python examples if any are found in the software/examples/python/ directory.
+This section contains MicroPython examples extracted from the software/examples/ directory.
 
-To add Python examples, create files in:
-- software/examples/python/example_name.py
+## Supported Structures
+The system detects Python examples in the following locations:
+- Preferred: `software/examples/micropython/example_name.py`
+- Alternative: `software/examples/python/example_name.py`
 
-Python examples will be automatically detected and displayed here.
+MicroPython examples will be automatically detected and displayed here.
 """
     
     return pages
@@ -425,54 +555,151 @@ No license file found in the repository.
 """
 
 def create_resources_page() -> str:
-    """Create resources page with links to datasheet and documentation."""
+    """Create resources page with hardware documentation and product PDF."""
     
-    resources_content = """# Datasheet & Documentation
+    # Detect schematic PDF dynamically
+    project_root = Path.cwd()
+    schematic_link = None
+    schematic_filename = None
+    
+    # Search for unit_sch_*.pdf in hardware and hardware/resources directories
+    search_paths = [
+        project_root / "hardware",
+        project_root / "hardware" / "resources"
+    ]
+    
+    for search_path in search_paths:
+        if search_path.exists():
+            for pdf_file in search_path.glob("unit_sch_*.pdf"):
+                schematic_filename = pdf_file.name
+                schematic_link = f"resources/{schematic_filename}"
+                break
+        if schematic_link:
+            break
+    
+    # Find product PDF in hardware directory
+    hardware_dir = project_root / "hardware"
+    product_pdf = None
+    
+    # Look for unit_product_*.pdf
+    for pdf_file in hardware_dir.glob("unit_product_*.pdf"):
+        product_pdf = pdf_file
+        break
+    
+    resources_content = """# Hardware Documentation & Resources
 
-## 📄 Professional Datasheet
+## Product Datasheet
 
-Complete technical specifications and professional documentation.
+Official product documentation with complete technical specifications.
+"""
+    
+    # Add product PDF if found
+    if product_pdf:
+        product_filename = product_pdf.name
+        resources_content += f"""
+**[Download Product Datasheet](hardware/{product_filename})** - Official PDF documentation
 
-📎 **<a href="../datasheet_professional.html" target="_blank">View Professional Datasheet</a>** - Interactive HTML version
+"""
+    else:
+        resources_content += """
+Product datasheet not found in hardware directory.
 
-📎 **<a href="../datasheet_professional.pdf" target="_blank">Download PDF Datasheet</a>** - Downloadable PDF version
+"""
+    
+    resources_content += """
+## Hardware Resources
+"""
+    
+    if schematic_link and schematic_filename:
+        resources_content += f"- [Schematic Diagram]({schematic_link}) - Complete circuit schematic\n"
+    else:
+        resources_content += "- Schematic Diagram - Not found (looking for unit_sch_*.pdf)\n"
+    
+    resources_content += """- [Pinout Reference](hardware/pinout.md) - Pin configuration details
 
-## 🔗 Additional Resources
+"""
+    
+    # Find product PDF in hardware directory
+    hardware_dir = project_root / "hardware"
+    product_pdf = None
+    
+    # Look for unit_product_*.pdf
+    for pdf_file in hardware_dir.glob("unit_product_*.pdf"):
+        product_pdf = pdf_file
+        break
+    
+    resources_content = """# Hardware Documentation & Resources
 
-### Hardware Resources
-- 🔌 [Schematic Diagram](resources/unit_sch_v_0_0_1_ue0081_Jun-R3.pdf) - Complete circuit schematic
-- 📐 [Board Dimensions](hardware/dimensions.md) - Physical specifications
-- 🔧 [Pinout Reference](hardware/pinout.md) - Pin configuration details
+## Product Datasheet
 
-### Software Resources
-- 💻 [Getting Started Guide](software/getting-started.md) - Setup and first steps  
-- 📝 [Code Examples](software/examples.md) - Arduino sketches and demos
-- 🛠️ [Development Setup](software/getting-started.md#development-environment) - IDE configuration
+Official product documentation with complete technical specifications.
+"""
+    
+    # Add product PDF if found
+    if product_pdf:
+        product_filename = product_pdf.name
+        resources_content += f"""
+**[Download Product Datasheet](hardware/{product_filename})** - Official PDF documentation
 
-### External Links
+"""
+    else:
+        resources_content += """
+Product datasheet not found in hardware directory.
+
+"""
+    
+    resources_content += """
+## Hardware Resources
+"""
+    
+    if schematic_link and schematic_filename:
+        resources_content += f"- [Schematic Diagram]({schematic_link}) - Complete circuit schematic\n"
+    else:
+        resources_content += "- Schematic Diagram - Not found (looking for unit_sch_*.pdf)\n"
+    
+    resources_content += """- [Pinout Reference](hardware/pinout.md) - Pin configuration details
+
+## Software Resources
+- [Getting Started Guide](software/getting-started.md) - Setup and first steps  
+- [Code Examples](software/examples.md) - Arduino sketches and demos
+- [Development Setup](software/getting-started.md#development-environment) - IDE configuration
+
+## External Links
 """
 
     # Add GitHub link if available
     github_url = get_github_repo_url()
     if github_url:
-        resources_content += f"- 🔗 <a href=\"{github_url}\" target=\"_blank\">Source Code Repository</a> - Complete project files\n"
+        resources_content += f"- [Source Code Repository]({github_url}) - Complete project files\n"
     
     resources_content += """
-## 📋 Quick Reference
+## Quick Reference
 
-| Resource Type | Description | Link |
-|---------------|-------------|------|
-| 📄 **Datasheet (HTML)** | Interactive technical specs | <a href="../datasheet_professional.html" target="_blank">View</a> |
-| 📄 **Datasheet (PDF)** | Downloadable technical specs | <a href="../datasheet_professional.pdf" target="_blank">PDF</a> |
-| 🔌 **Schematic** | Circuit diagram | <a href="resources/unit_sch_v_0_0_1_ue0081_Jun-R3.pdf" target="_blank">PDF</a> |
-| � **Dimensions** | Board measurements | [View](hardware/dimensions.md) |
-| 🔧 **Pinout** | Pin configuration | [View](hardware/pinout.md) |
-| �💻 **Examples** | Code samples | [View](software/examples.md) |
-| 🔧 **Setup Guide** | Getting started | [View](software/getting-started.md) |
+| Resource | Description | Link |
+|----------|-------------|------|"""
+    
+    # Add product PDF to quick reference
+    if product_pdf:
+        product_filename = product_pdf.name
+        resources_content += f"""
+| **Product Datasheet** | Official technical documentation | [PDF](hardware/{product_filename}) |"""
+    
+    # Add schematic
+    if schematic_link and schematic_filename:
+        resources_content += f"""
+| **Schematic** | Circuit diagram | [PDF]({schematic_link}) |"""
+    else:
+        resources_content += f"""
+| **Schematic** | Circuit diagram | Not found |"""
+    
+    resources_content += """
+| **Pinout** | Pin configuration | [View](hardware/pinout.md) |
+| **Examples** | Code samples | [View](software/examples.md) |
+| **Setup Guide** | Getting started | [View](software/getting-started.md) |
 
 ---
 
-*For the most up-to-date information, please refer to the official documentation and repository.*
+*Hardware documentation extracted from project files.*
 """
     
     return resources_content
@@ -509,16 +736,32 @@ def copy_resources():
                         pass
         
         if copied > 0:
-            print_status(f"Imágenes copiadas: {copied} archivos", "🖼️")
+            print_status(f"Imágenes copiadas: {copied} archivos")
     
-    # Copy PDFs from hardware and docs directories
+    # Copy PDFs from hardware directory (including product PDF)
+    hardware_target = book_path / "src" / "hardware"
+    hardware_target.mkdir(parents=True, exist_ok=True)
+    
+    pdf_copied = 0
+    
+    # Copy all PDFs from hardware directory
+    if hardware_dir.exists():
+        for pdf_file in hardware_dir.glob("*.pdf"):
+            try:
+                target_file = hardware_target / pdf_file.name
+                shutil.copy2(pdf_file, target_file)
+                pdf_copied += 1
+                print_status(f"Copied hardware PDF: {pdf_file.name}")
+            except Exception as e:
+                print_status(f"Warning: Could not copy {pdf_file.name}: {e}")
+    
+    # Also copy to resources for compatibility
     pdf_targets = [
         book_path / "src" / "resources",
         book_path / "src" / "hardware" / "resources"
     ]
     
-    pdf_sources = [hardware_dir, docs_dir]
-    pdf_copied = 0
+    pdf_sources = [docs_dir, hardware_dir]  # Add hardware_dir as PDF source
     
     for source_dir in pdf_sources:
         if source_dir.exists():
@@ -534,7 +777,7 @@ def copy_resources():
                         pass
     
     if pdf_copied > 0:
-        print_status(f"PDFs copiados: {pdf_copied} archivos", "📄")
+        print_status(f"PDFs copiados: {pdf_copied} archivos")
     
     return copied + pdf_copied
 
@@ -583,7 +826,7 @@ def create_summary() -> str:
 def main():
     """Main execution."""
     
-    print_status("Extrayendo contenido SIN duplicar títulos...", "🎯")
+    print_status("Extrayendo contenido SIN duplicar títulos...")
     
     # Setup directories
     project_root = Path.cwd()
@@ -594,19 +837,19 @@ def main():
     (src_path / "software" / "examples").mkdir(parents=True, exist_ok=True)
     
     # Process content intelligently
-    print_status("Procesando README principal...", "📄")
+    print_status("Procesando README principal...")
     intro_content = process_main_readme()
     
-    print_status("Procesando hardware (sin duplicar títulos)...", "🔧")
+    print_status("Procesando hardware (sin duplicar títulos)...")
     hardware_pages = process_hardware_readme()
     
-    print_status("Procesando software...", "💻")
+    print_status("Procesando software...")
     software_pages = process_software_content()
     
-    print_status("Procesando licencia...", "📄")
+    print_status("Procesando licencia...")
     license_content = process_license()
     
-    print_status("Creando página de recursos...", "📋")
+    print_status("Creando página de recursos...")
     resources_content = create_resources_page()
     
     # Prepare all files
