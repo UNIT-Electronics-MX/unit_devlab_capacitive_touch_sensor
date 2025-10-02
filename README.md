@@ -1,10 +1,10 @@
 
-# Touch Capacitive Sensor
+# DevLab: Capacitive Touch Sensor
 
 ## Introduction
 
 <!-- FILL HERE -->
-The UNIT Touch Capacitive Sensor transforms a simple touch into a precise digital signal—no buttons, no moving parts. Powered by the TTP223B capacitive sensing chip, this board continuously monitors its flat electrode pad and instantly reports “touch detected” via a clean HIGH logic output. Whether you’re building a sleek control panel, a wearable interface, or a touch-activated lamp, this sensor delivers reliable, debounce-free touch detection with minimal wiring and virtually zero power draw at rest.
+The UNIT Capacitive Touch Sensor transforms a simple touch into a precise digital signal—no buttons, no moving parts. Powered by the TTP223B capacitive sensing chip, this board continuously monitors its flat electrode pad and instantly reports “touch detected” via a clean HIGH logic output. Whether you’re building a sleek control panel, a wearable interface, or a touch-activated lamp, this sensor delivers reliable, debounce-free touch detection with minimal wiring and virtually zero power draw at rest.
 
 <div align="center">
   <img src="hardware/resources/unit_top_V_0_0_1_ue0099_Sensor_Touch.png" width="500px" alt="Development Board">
@@ -24,7 +24,7 @@ The UNIT Touch Capacitive Sensor transforms a simple touch into a precise digita
 
 </div>
 
-## 📦 Overview
+## Overview
 
 | Feature              | Description                                                                                                                                      |
 |----------------------|--------------------------------------------------------------------------------------------------------------------------------------------------|
@@ -34,7 +34,7 @@ The UNIT Touch Capacitive Sensor transforms a simple touch into a precise digita
 | Mode Selection       | Solder jumper selects between Momentary mode (OUT is HIGH only while touched) and Toggle mode (OUT toggles state on each touch). |
 
 
-## 🧪 Use Cases
+## Use Cases
 
 - Touch-sensitive controls for user interfaces
 - Wearable technology with touch input
@@ -42,7 +42,7 @@ The UNIT Touch Capacitive Sensor transforms a simple touch into a precise digita
 - Robotics and IoT projects requiring simple touch input
 
 
-## 📚 Resources
+## Resources
 
 - [Schematic Diagram](https://github.com/UNIT-Electronics-MX/unit_touch_capacitive_sensor/blob/main/hardware/unit_sch_V_0_0_1_ue0099_Sensor_Touch.pdf)
 
@@ -51,7 +51,7 @@ The UNIT Touch Capacitive Sensor transforms a simple touch into a precise digita
 
 
   
-## 📝 License
+## License
 
 All hardware and documentation in this project are licensed under the **MIT License**.  
 Please refer to [`LICENSE.md`](LICENSE.md) for full terms.
