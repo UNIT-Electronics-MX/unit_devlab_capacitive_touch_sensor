@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>Overview</title>
+        <title>Key Technical Specifications</title>
 
 
         <!-- Custom HTML head -->
@@ -175,13 +175,7 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1 id="hardware-overview"><a class="header" href="#hardware-overview">Hardware Overview</a></h1>
-<div align="center">
-    <a href="../resources/unit_sch_V_0_0_1_ue0099_Sensor_Touch.pdf">
-        <img src="../resources/Schematics_icon.jpg?raw=false" width="450px"><br/> Schematics
-    </a>
-</div>
-<h2 id="key-technical-specifications"><a class="header" href="#key-technical-specifications">Key Technical Specifications</a></h2>
+                        <h1 id="key-technical-specifications"><a class="header" href="#key-technical-specifications">Key Technical Specifications</a></h1>
 <div align="center">
 <div class="table-wrapper"><table><thead><tr><th>Symbol</th><th>Parameter</th><th>Min</th><th>Typ</th><th>Max</th><th>Unit</th></tr></thead><tbody>
 <tr><td>VDD</td><td>Operating Voltage</td><td>2.0</td><td>3</td><td>5.5</td><td>V</td></tr>
@@ -194,52 +188,15 @@
 </tbody></table>
 </div></div>
 *The sensor is in low-power mode by default. When it detects a key touch it switches to fast mode. After the touch is released, the sensor returns to low-power mode in about 12 seconds.
-<h2 id="-pinout"><a class="header" href="#-pinout">🔌 Pinout</a></h2>
-<h3 id="pinout-diagram"><a class="header" href="#pinout-diagram">Pinout Diagram</a></h3>
-<div align="center">
-    <a href="../resources/unit_sch_V_0_0_1_ue0099_Sensor_Touch.pdf">
-        <img src="../resources/unit_pinout_v_0_0_1_ue0099_sensor_touch_en.jpg" width="500px"><br/> Schematics
-    </a>
-</div>
-<br/>
-<br/>
-<h3 id="pinout-details"><a class="header" href="#pinout-details">Pinout Details</a></h3>
-<div align="center">
-<div class="table-wrapper"><table><thead><tr><th>Pin Label</th><th>Function</th><th>Notes</th></tr></thead><tbody>
-<tr><td>VCC</td><td>Power Supply</td><td>3.3V or 5V, depending on design</td></tr>
-<tr><td>GND</td><td>Ground</td><td>Common ground reference</td></tr>
-<tr><td>DOUT</td><td>Data Signal</td><td>Digital Output signal</td></tr>
-<tr><td>Mode Select</td><td>Solder Jumper</td><td>Select between Momentary or Toggle mode</td></tr>
-<tr><td>Level Selection</td><td>Solder Jumper</td><td>Select between low and high sensitivity</td></tr>
-</tbody></table>
-</div></div>
-<h2 id="-topology"><a class="header" href="#-topology">📃 Topology</a></h2>
-<div align="center">
-<div align="center"><a href="../resources/unit_topology_V_0_0_1_ue0099_Sensor_Touch.png"><img src="../resources/unit_topology_V_0_0_1_ue0099_Sensor_Touch.png" style="max-width: 500px; height: auto;" alt="Topology"><br/> Topology</a></div>
-<br/>
-<br/>
-<div class="table-wrapper"><table><thead><tr><th>Ref.</th><th>Description</th></tr></thead><tbody>
-<tr><td>SW1</td><td>Capacitive Touch Button</td></tr>
-<tr><td>L1</td><td>Built-In LED</td></tr>
-<tr><td>IC1</td><td>TTP223-BA6-TD Touch Detector</td></tr>
-<tr><td>J1</td><td>QWIIC Connector (JST 1 mm pitch) for I2C</td></tr>
-<tr><td>SB1</td><td>Solder Bridge for Mode Selection</td></tr>
-<tr><td>SB2</td><td>Solder Bridge for Logic Level Selector</td></tr>
-</tbody></table>
-</div></div>
-<h2 id="-dimensions"><a class="header" href="#-dimensions">📏 Dimensions</a></h2>
-<div align="center">
-<div align="center"><a href="../resources/unit_dimension_V_0_0_1_ue0099_Sensor_Touch.png"><img src="../resources/unit_dimension_V_0_0_1_ue0099_Sensor_Touch.png" style="max-width: 500px; height: auto;" alt="Dimensions"><br/> Dimensions</a></div>
-</div>
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="../introduction.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="../hardware/overview.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
 
-                            <a rel="next prefetch" href="../hardware/key-technical-specifications.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next prefetch" href="../hardware/pinout.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <i class="fa fa-angle-right"></i>
                             </a>
 
@@ -249,11 +206,11 @@
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="../introduction.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="../hardware/overview.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
 
-                    <a rel="next prefetch" href="../hardware/key-technical-specifications.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next prefetch" href="../hardware/pinout.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
             </nav>

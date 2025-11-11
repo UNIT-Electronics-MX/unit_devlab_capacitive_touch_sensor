@@ -228,8 +228,21 @@ Please refer to <a href="LICENSE.html"><code>LICENSE.md</code></a> for full term
         <img src="hardware/../resources/Schematics_icon.jpg?raw=false" width="450px"><br/> Schematics
     </a>
 </div>
+<h2 id="key-technical-specifications"><a class="header" href="#key-technical-specifications">Key Technical Specifications</a></h2>
+<div align="center">
+<div class="table-wrapper"><table><thead><tr><th>Symbol</th><th>Parameter</th><th>Min</th><th>Typ</th><th>Max</th><th>Unit</th></tr></thead><tbody>
+<tr><td>VDD</td><td>Operating Voltage</td><td>2.0</td><td>3</td><td>5.5</td><td>V</td></tr>
+<tr><td>f</td><td>System oscillator</td><td>16</td><td>-</td><td>512</td><td>kHz</td></tr>
+<tr><td>f_sen</td><td>Sensor oscillator</td><td>-</td><td>1</td><td>-</td><td>MHz</td></tr>
+<tr><td>V_IL</td><td>Sensor Input Low Voltage</td><td>0</td><td>-</td><td>0.2</td><td>VDD</td></tr>
+<tr><td>V_IH</td><td>Sensor Input High Voltage</td><td>0.8</td><td>-</td><td>1.0</td><td>VDD</td></tr>
+<tr><td>T_rf*</td><td>Response Time at fast mode</td><td>-</td><td>-</td><td>60</td><td>mS</td></tr>
+<tr><td>T_rl*</td><td>Response Time at low power mode</td><td>-</td><td>-</td><td>220</td><td>mS</td></tr>
+</tbody></table>
+</div></div>
+*The sensor is in low-power mode by default. When it detects a key touch it switches to fast mode. After the touch is released, the sensor returns to low-power mode in about 12 seconds.
 <h2 id="-pinout"><a class="header" href="#-pinout">🔌 Pinout</a></h2>
-<h3 id="pinout-diagram"><a class="header" href="#pinout-diagram"><strong>Pinout Diagram</strong></a></h3>
+<h3 id="pinout-diagram"><a class="header" href="#pinout-diagram">Pinout Diagram</a></h3>
 <div align="center">
     <a href="hardware/../resources/unit_sch_V_0_0_1_ue0099_Sensor_Touch.pdf">
         <img src="hardware/../resources/unit_pinout_v_0_0_1_ue0099_sensor_touch_en.jpg" width="500px"><br/> Schematics
@@ -237,7 +250,8 @@ Please refer to <a href="LICENSE.html"><code>LICENSE.md</code></a> for full term
 </div>
 <br/>
 <br/>
-<h3 id="pinout-details"><a class="header" href="#pinout-details"><strong>Pinout Details</strong></a></h3>
+<h3 id="pinout-details"><a class="header" href="#pinout-details">Pinout Details</a></h3>
+<div align="center">
 <div class="table-wrapper"><table><thead><tr><th>Pin Label</th><th>Function</th><th>Notes</th></tr></thead><tbody>
 <tr><td>VCC</td><td>Power Supply</td><td>3.3V or 5V, depending on design</td></tr>
 <tr><td>GND</td><td>Ground</td><td>Common ground reference</td></tr>
@@ -245,11 +259,7 @@ Please refer to <a href="LICENSE.html"><code>LICENSE.md</code></a> for full term
 <tr><td>Mode Select</td><td>Solder Jumper</td><td>Select between Momentary or Toggle mode</td></tr>
 <tr><td>Level Selection</td><td>Solder Jumper</td><td>Select between low and high sensitivity</td></tr>
 </tbody></table>
-</div>
-<h2 id="-dimensions"><a class="header" href="#-dimensions">📏 Dimensions</a></h2>
-<div align="center">
-<div align="center"><a href="hardware/../resources/unit_dimension_V_0_0_1_ue0099_Sensor_Touch.png"><img src="hardware/../resources/unit_dimension_V_0_0_1_ue0099_Sensor_Touch.png" style="max-width: 500px; height: auto;" alt="Dimensions"><br/> Dimensions</a></div>
-</div>
+</div></div>
 <h2 id="-topology"><a class="header" href="#-topology">📃 Topology</a></h2>
 <div align="center">
 <div align="center"><a href="hardware/../resources/unit_topology_V_0_0_1_ue0099_Sensor_Touch.png"><img src="hardware/../resources/unit_topology_V_0_0_1_ue0099_Sensor_Touch.png" style="max-width: 500px; height: auto;" alt="Topology"><br/> Topology</a></div>
@@ -263,8 +273,24 @@ Please refer to <a href="LICENSE.html"><code>LICENSE.md</code></a> for full term
 <tr><td>SB1</td><td>Solder Bridge for Mode Selection</td></tr>
 <tr><td>SB2</td><td>Solder Bridge for Logic Level Selector</td></tr>
 </tbody></table>
-</div></div><div style="break-before: page; page-break-before: always;"></div><h1 id="pinout"><a class="header" href="#pinout">Pinout</a></h1>
-<h3 id="pinout-diagram-1"><a class="header" href="#pinout-diagram-1"><strong>Pinout Diagram</strong></a></h3>
+</div></div>
+<h2 id="-dimensions"><a class="header" href="#-dimensions">📏 Dimensions</a></h2>
+<div align="center">
+<div align="center"><a href="hardware/../resources/unit_dimension_V_0_0_1_ue0099_Sensor_Touch.png"><img src="hardware/../resources/unit_dimension_V_0_0_1_ue0099_Sensor_Touch.png" style="max-width: 500px; height: auto;" alt="Dimensions"><br/> Dimensions</a></div>
+</div><div style="break-before: page; page-break-before: always;"></div><h1 id="key-technical-specifications-1"><a class="header" href="#key-technical-specifications-1">Key Technical Specifications</a></h1>
+<div align="center">
+<div class="table-wrapper"><table><thead><tr><th>Symbol</th><th>Parameter</th><th>Min</th><th>Typ</th><th>Max</th><th>Unit</th></tr></thead><tbody>
+<tr><td>VDD</td><td>Operating Voltage</td><td>2.0</td><td>3</td><td>5.5</td><td>V</td></tr>
+<tr><td>f</td><td>System oscillator</td><td>16</td><td>-</td><td>512</td><td>kHz</td></tr>
+<tr><td>f_sen</td><td>Sensor oscillator</td><td>-</td><td>1</td><td>-</td><td>MHz</td></tr>
+<tr><td>V_IL</td><td>Sensor Input Low Voltage</td><td>0</td><td>-</td><td>0.2</td><td>VDD</td></tr>
+<tr><td>V_IH</td><td>Sensor Input High Voltage</td><td>0.8</td><td>-</td><td>1.0</td><td>VDD</td></tr>
+<tr><td>T_rf*</td><td>Response Time at fast mode</td><td>-</td><td>-</td><td>60</td><td>mS</td></tr>
+<tr><td>T_rl*</td><td>Response Time at low power mode</td><td>-</td><td>-</td><td>220</td><td>mS</td></tr>
+</tbody></table>
+</div></div>
+*The sensor is in low-power mode by default. When it detects a key touch it switches to fast mode. After the touch is released, the sensor returns to low-power mode in about 12 seconds.<div style="break-before: page; page-break-before: always;"></div><h1 id="pinout"><a class="header" href="#pinout">Pinout</a></h1>
+<h3 id="pinout-diagram-1"><a class="header" href="#pinout-diagram-1">Pinout Diagram</a></h3>
 <div align="center">
     <a href="hardware/../resources/unit_sch_V_0_0_1_ue0099_Sensor_Touch.pdf">
         <img src="hardware/../resources/unit_pinout_v_0_0_1_ue0099_sensor_touch_en.jpg" width="500px"><br/> Schematics
@@ -272,7 +298,8 @@ Please refer to <a href="LICENSE.html"><code>LICENSE.md</code></a> for full term
 </div>
 <br/>
 <br/>
-<h3 id="pinout-details-1"><a class="header" href="#pinout-details-1"><strong>Pinout Details</strong></a></h3>
+<h3 id="pinout-details-1"><a class="header" href="#pinout-details-1">Pinout Details</a></h3>
+<div align="center">
 <div class="table-wrapper"><table><thead><tr><th>Pin Label</th><th>Function</th><th>Notes</th></tr></thead><tbody>
 <tr><td>VCC</td><td>Power Supply</td><td>3.3V or 5V, depending on design</td></tr>
 <tr><td>GND</td><td>Ground</td><td>Common ground reference</td></tr>
@@ -280,10 +307,7 @@ Please refer to <a href="LICENSE.html"><code>LICENSE.md</code></a> for full term
 <tr><td>Mode Select</td><td>Solder Jumper</td><td>Select between Momentary or Toggle mode</td></tr>
 <tr><td>Level Selection</td><td>Solder Jumper</td><td>Select between low and high sensitivity</td></tr>
 </tbody></table>
-</div><div style="break-before: page; page-break-before: always;"></div><h1 id="dimensions"><a class="header" href="#dimensions">Dimensions</a></h1>
-<div align="center">
-<div align="center"><a href="hardware/../resources/unit_dimension_V_0_0_1_ue0099_Sensor_Touch.png"><img src="hardware/../resources/unit_dimension_V_0_0_1_ue0099_Sensor_Touch.png" style="max-width: 500px; height: auto;" alt="Dimensions"><br/> Dimensions</a></div>
-</div><div style="break-before: page; page-break-before: always;"></div><h1 id="topology"><a class="header" href="#topology">Topology</a></h1>
+</div></div><div style="break-before: page; page-break-before: always;"></div><h1 id="topology"><a class="header" href="#topology">Topology</a></h1>
 <div align="center">
 <div align="center"><a href="hardware/../resources/unit_topology_V_0_0_1_ue0099_Sensor_Touch.png"><img src="hardware/../resources/unit_topology_V_0_0_1_ue0099_Sensor_Touch.png" style="max-width: 500px; height: auto;" alt="Topology"><br/> Topology</a></div>
 <br/>
@@ -296,7 +320,10 @@ Please refer to <a href="LICENSE.html"><code>LICENSE.md</code></a> for full term
 <tr><td>SB1</td><td>Solder Bridge for Mode Selection</td></tr>
 <tr><td>SB2</td><td>Solder Bridge for Logic Level Selector</td></tr>
 </tbody></table>
-</div></div><div style="break-before: page; page-break-before: always;"></div><h1 id="getting-started"><a class="header" href="#getting-started">Getting Started</a></h1>
+</div></div><div style="break-before: page; page-break-before: always;"></div><h1 id="dimensions"><a class="header" href="#dimensions">Dimensions</a></h1>
+<div align="center">
+<div align="center"><a href="hardware/../resources/unit_dimension_V_0_0_1_ue0099_Sensor_Touch.png"><img src="hardware/../resources/unit_dimension_V_0_0_1_ue0099_Sensor_Touch.png" style="max-width: 500px; height: auto;" alt="Dimensions"><br/> Dimensions</a></div>
+</div><div style="break-before: page; page-break-before: always;"></div><h1 id="getting-started"><a class="header" href="#getting-started">Getting Started</a></h1>
 <h2 id="quick-setup-1"><a class="header" href="#quick-setup-1">Quick Setup</a></h2>
 <h3 id="1-hardware-connections"><a class="header" href="#1-hardware-connections">1. Hardware Connections</a></h3>
 <ul>
