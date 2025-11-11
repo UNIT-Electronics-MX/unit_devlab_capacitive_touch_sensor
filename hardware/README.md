@@ -9,6 +9,8 @@
 
 ## Key Technical Specifications
 
+<div align="center">
+
 | Symbol | Parameter                       | Min | Typ | Max | Unit |
 |--------|---------------------------------|-----|-----|-----|------|
 | VDD    | Operating Voltage               | 2.0 | 3   | 5.5 | V    |
@@ -19,6 +21,7 @@
 | T_rf*   | Response Time at fast mode      | -   | -   | 60  | mS   |
 | T_rl*   | Response Time at low power mode | -   | -   | 220 | mS   |
 
+</div>
 *The sensor is in low-power mode by default. When it detects a key touch it switches to fast mode. After the touch is released, the sensor returns to low-power mode in about 12 seconds.
 
 ## 🔌 Pinout
@@ -36,6 +39,8 @@
 
 ### Pinout Details
 
+<div align="center">
+
 | Pin Label | Function     | Notes                           |
 |-----------|--------------|---------------------------------|
 | VCC       | Power Supply | 3.3V or 5V, depending on design  |
@@ -43,6 +48,8 @@
 | DOUT        | Data Signal  | Digital Output signal     |
 | Mode Select | Solder Jumper | Select between Momentary or Toggle mode |
 | Level Selection| Solder Jumper | Select between low and high sensitivity |
+
+</div>
 
 ## 📃 Topology
 
