@@ -1,8 +1,9 @@
 # Hardware
 
+UNIT DevLab Capacitive Touch Sensor Hardware Documentation
 
 <div align="center">
-    <a href="./unit_sch_V_0_0_1_ue0099_Sensor_Touch.pdf">
+    <a href="./unit_sch_v_0_0_1_ue0099_sensor_touch.pdf">
         <img src="resources/Schematics_icon.jpg?raw=false" width="450px"><br/> Schematics
     </a>
 </div>
